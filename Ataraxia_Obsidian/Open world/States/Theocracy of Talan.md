@@ -1,0 +1,1 @@
+Generic human theocracy. Demihumans are present, but scarce.

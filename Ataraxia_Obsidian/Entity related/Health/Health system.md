@@ -1,0 +1,1 @@
+Related: [[Wounds]] [[Statuses]] [[Debuffs]]

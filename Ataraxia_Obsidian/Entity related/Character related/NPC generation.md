@@ -1,0 +1,1 @@
+Related parts: [[Races]] [[NPC Prehistory]] [[Perks]] [[NPC template]] [[Stats]]

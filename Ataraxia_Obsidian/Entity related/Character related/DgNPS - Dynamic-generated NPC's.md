@@ -1,0 +1,1 @@
+Related: [[NPC generation]] [[NPC autonomy]]

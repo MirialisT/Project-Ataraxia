@@ -1,0 +1,1 @@
+Related: [[NPC autonomy]] [[NPC Prehistory]]
