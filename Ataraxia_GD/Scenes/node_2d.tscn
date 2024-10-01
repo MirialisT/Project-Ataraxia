@@ -1,8 +1,9 @@
-[gd_scene load_steps=7 format=4 uid="uid://y5q6m6r8khvj"]
+[gd_scene load_steps=8 format=4 uid="uid://y5q6m6r8khvj"]
 
 [ext_resource type="Texture2D" uid="uid://cgfctdk0a0uxh" path="res://Tilesets/Sprite-0001.png" id="1_o3ici"]
 [ext_resource type="Script" path="res://Scripts/player.gd" id="2_rse3e"]
 [ext_resource type="Texture2D" uid="uid://dpdlwou6fgyck" path="res://Sprites/icon.svg" id="3_dh484"]
+[ext_resource type="PackedScene" uid="uid://cnb07n7st34av" path="res://PropertyController.tscn" id="4_wj8c6"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_v1o2v"]
 texture = ExtResource("1_o3ici")
@@ -44,3 +45,5 @@ shape = SubResource("RectangleShape2D_xvac6")
 target_position = Vector2(0, 32)
 
 [node name="UI" type="CanvasLayer" parent="player"]
+
+[node name="PropertyController" parent="player" instance=ExtResource("4_wj8c6")]
