@@ -73,6 +73,14 @@ collide_with_areas = true
 
 [node name="PropertyController" parent="Alex" instance=ExtResource("4_wj8c6")]
 
+[node name="hbar" type="ProgressBar" parent="Alex"]
+offset_left = -14.0
+offset_top = -28.0
+offset_right = 15.0
+offset_bottom = -16.0
+step = 10.0
+show_percentage = false
+
 [node name="Sera" type="Area2D" parent="."]
 position = Vector2(467, 195)
 collision_layer = 2
@@ -94,3 +102,11 @@ collide_with_areas = true
 [node name="UI" type="CanvasLayer" parent="Sera"]
 
 [node name="PropertyController" parent="Sera" instance=ExtResource("4_wj8c6")]
+
+[node name="hbar" type="ProgressBar" parent="Sera"]
+offset_left = -14.0
+offset_top = -28.0
+offset_right = 15.0
+offset_bottom = -16.0
+step = 10.0
+show_percentage = false

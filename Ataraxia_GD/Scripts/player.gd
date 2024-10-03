@@ -29,10 +29,10 @@ func _unhandled_input(event):
 			print("Hey ", target)
 		if target is Entity:
 			print("It can be alive, either NPC or beast")
-			if target.npc_name != null: print("Hey, it's has name, hello %s!" % target.npc_name)
+			if target.npc_name != null: print("Hey, it's has name, hello %s %s!" % [target.race.race_name, target.npc_name])
 			if target.stats_handler.is_alive:
 				print("Oh, it's actually alive, has %d health, hitting!" % target.stats_handler.current_health)
-				target.stats_handler.damage(10)
+				target.handle_damage(10)
 			else: print("It's already dead...")
 	for dir in inputs.keys():
 		if event.is_action_pressed(dir):

@@ -16,11 +16,15 @@ class_name Entity
 	#}
 			
 # Called when the node enters the scene tree for the first time.
+func handle_damage(damage_amount: int):
+	$hbar.value = stats_handler.damage(damage_amount)
+	
 func _ready():
 	position = position.snapped(Vector2.ONE * tile_size)
 	position += Vector2.ONE * tile_size/2
 	stats_handler.get_info()
 	print(race.race_name, race.get_race_buffs())
+	$hbar.value = stats_handler.get_health()
 
 func _process(_delta) -> void:
 	if !stats_handler.is_alive: queue_free()
