@@ -1,9 +1,10 @@
 extends Area2D
+class_name Player
 
 @export var tile_size = 32
 @onready var race_controller = $PropertyController/RaceController
 @onready var stats_controller = $PropertyController/StatsController
-@onready var body = $PropertyController/BodyController
+# @onready var body = $PropertyController/BodyController.Body.new()
 @onready var race = race_controller.Human.new()
 @onready var stats_handler = stats_controller.StatsHandler.new()
 var inputs = {
@@ -25,12 +26,18 @@ func _unhandled_input(event):
 		stats_handler.level_up()
 		var target = $RayCast2D.get_collider()
 		if target != null:
-			print("Hey", target)
+			print("Hey ",target)
+		if target is Entity:
+			print("It can be alive, either NPC or beast")
+			if target.stats_handler.is_alive:
+				print("It's actually alive, hitting!")
+				target.stats_handler.damage(10)
+			else: print("It's already dead...")
 	for dir in inputs.keys():
 		if event.is_action_pressed(dir):
 			move(dir)
 
-func raycast_handler(direction):
+func collision_handler(direction):
 	var raycast_x = tile_size * inputs[direction][0]
 	var raycast_y = tile_size * inputs[direction][1]
 	$RayCast2D.target_position = Vector2(raycast_x, raycast_y)
@@ -38,7 +45,6 @@ func raycast_handler(direction):
 	return !$RayCast2D.is_colliding()
 		
 func move(dir):
-	if raycast_handler(dir) and stats_handler.is_alive_check():
-		stats_handler.damage(10)
-		stats_handler.get_info()
+	#stats_handler.get_info()
+	if collision_handler(dir):
 		position += inputs[dir] * tile_size

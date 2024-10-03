@@ -29,19 +29,23 @@ class StatsHandler:
 		current_health = max_health
 		
 	func get_health(): return current_health
-	func heal(heal: int): current_health += heal
+	func heal(heal_amount: int): current_health += heal_amount
 	func restore_health(): current_health = max_health
-	func damage(damage: int):
-		current_health -= damage
+	func damage(damage_amount: int):
+		print("Got hit by %d!" % damage_amount)
+		current_health -= damage_amount
 		if current_health <= 0:
 			current_health = 0
 			is_alive = false
 			print("DEAD")
 	func is_alive_check(): return is_alive
 	func get_info():
-		print("Current health: %d, max health: %d, level: %d, spare points: %d" % [current_health, max_health, level, spare_points])
-		print(stats)
-		
+		if is_alive:
+			print("Current health: %d, max health: %d, level: %d, spare points: %d" % [current_health, max_health, level, spare_points])
+			print(stats)
+		else:
+			print("DEAD")
+
 	func _init():
 		level_up()
 	

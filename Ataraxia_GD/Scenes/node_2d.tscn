@@ -1,9 +1,10 @@
-[gd_scene load_steps=8 format=4 uid="uid://y5q6m6r8khvj"]
+[gd_scene load_steps=9 format=4 uid="uid://y5q6m6r8khvj"]
 
 [ext_resource type="Texture2D" uid="uid://cgfctdk0a0uxh" path="res://Tilesets/Sprite-0001.png" id="1_o3ici"]
 [ext_resource type="Script" path="res://Scripts/player.gd" id="2_rse3e"]
 [ext_resource type="Texture2D" uid="uid://dpdlwou6fgyck" path="res://Sprites/icon.svg" id="3_dh484"]
 [ext_resource type="PackedScene" uid="uid://cnb07n7st34av" path="res://PropertyController.tscn" id="4_wj8c6"]
+[ext_resource type="Script" path="res://Scenes/npc.gd" id="5_orh1u"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_v1o2v"]
 texture = ExtResource("1_o3ici")
@@ -43,7 +44,30 @@ shape = SubResource("RectangleShape2D_xvac6")
 
 [node name="RayCast2D" type="RayCast2D" parent="player"]
 target_position = Vector2(0, 32)
+collision_mask = 3
+collide_with_areas = true
 
 [node name="UI" type="CanvasLayer" parent="player"]
 
 [node name="PropertyController" parent="player" instance=ExtResource("4_wj8c6")]
+
+[node name="npc" type="Area2D" parent="."]
+position = Vector2(572, 195)
+collision_layer = 2
+script = ExtResource("5_orh1u")
+
+[node name="Sprite2D" type="Sprite2D" parent="npc"]
+scale = Vector2(0.21875, 0.21875)
+texture = ExtResource("3_dh484")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="npc"]
+shape = SubResource("RectangleShape2D_xvac6")
+
+[node name="RayCast2D" type="RayCast2D" parent="npc"]
+target_position = Vector2(0, 32)
+collision_mask = 3
+collide_with_areas = true
+
+[node name="UI" type="CanvasLayer" parent="npc"]
+
+[node name="PropertyController" parent="npc" instance=ExtResource("4_wj8c6")]
