@@ -3,6 +3,7 @@ extends Area2D
 @export var tile_size = 32
 @onready var race_controller = $PropertyController/RaceController
 @onready var stats_controller = $PropertyController/StatsController
+@onready var body = $PropertyController/BodyController
 @onready var race = race_controller.Human.new()
 @onready var stats_handler = stats_controller.StatsHandler.new()
 var inputs = {
