@@ -51,23 +51,46 @@ collide_with_areas = true
 
 [node name="PropertyController" parent="player" instance=ExtResource("4_wj8c6")]
 
-[node name="npc" type="Area2D" parent="."]
+[node name="Alex" type="Area2D" parent="."]
 position = Vector2(572, 195)
 collision_layer = 2
 script = ExtResource("5_orh1u")
+npc_name = "Alex"
 
-[node name="Sprite2D" type="Sprite2D" parent="npc"]
+[node name="Sprite2D" type="Sprite2D" parent="Alex"]
 scale = Vector2(0.21875, 0.21875)
 texture = ExtResource("3_dh484")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="npc"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Alex"]
 shape = SubResource("RectangleShape2D_xvac6")
 
-[node name="RayCast2D" type="RayCast2D" parent="npc"]
+[node name="RayCast2D" type="RayCast2D" parent="Alex"]
 target_position = Vector2(0, 32)
 collision_mask = 3
 collide_with_areas = true
 
-[node name="UI" type="CanvasLayer" parent="npc"]
+[node name="UI" type="CanvasLayer" parent="Alex"]
 
-[node name="PropertyController" parent="npc" instance=ExtResource("4_wj8c6")]
+[node name="PropertyController" parent="Alex" instance=ExtResource("4_wj8c6")]
+
+[node name="Sera" type="Area2D" parent="."]
+position = Vector2(467, 195)
+collision_layer = 2
+script = ExtResource("5_orh1u")
+npc_name = "Sera"
+
+[node name="Sprite2D" type="Sprite2D" parent="Sera"]
+scale = Vector2(0.21875, 0.21875)
+texture = ExtResource("3_dh484")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Sera"]
+shape = SubResource("RectangleShape2D_xvac6")
+
+[node name="RayCast2D" type="RayCast2D" parent="Sera"]
+target_position = Vector2(0, 32)
+collision_mask = 3
+collide_with_areas = true
+
+[node name="UI" type="CanvasLayer" parent="Sera"]
+
+[node name="PropertyController" parent="Sera" instance=ExtResource("4_wj8c6")]

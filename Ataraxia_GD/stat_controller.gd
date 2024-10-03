@@ -38,6 +38,7 @@ class StatsHandler:
 			current_health = 0
 			is_alive = false
 			print("DEAD")
+			
 	func is_alive_check(): return is_alive
 	func get_info():
 		if is_alive:

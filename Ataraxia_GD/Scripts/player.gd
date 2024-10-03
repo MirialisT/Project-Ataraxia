@@ -26,11 +26,12 @@ func _unhandled_input(event):
 		stats_handler.level_up()
 		var target = $RayCast2D.get_collider()
 		if target != null:
-			print("Hey ",target)
+			print("Hey ", target)
 		if target is Entity:
 			print("It can be alive, either NPC or beast")
+			if target.npc_name != null: print("Hey, it's has name, hello %s!" % target.npc_name)
 			if target.stats_handler.is_alive:
-				print("It's actually alive, hitting!")
+				print("Oh, it's actually alive, has %d health, hitting!" % target.stats_handler.current_health)
 				target.stats_handler.damage(10)
 			else: print("It's already dead...")
 	for dir in inputs.keys():

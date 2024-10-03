@@ -1,8 +1,8 @@
 extends Area2D
 class_name Entity
 
+@export var npc_name = "changeme"
 @export var tile_size = 32
-@export var uq_id = 1231245214
 @onready var race_controller = $PropertyController/RaceController
 @onready var stats_controller = $PropertyController/StatsController
 # @onready var body = $PropertyController/BodyController.Body.new()
@@ -20,9 +20,10 @@ func _ready():
 	position = position.snapped(Vector2.ONE * tile_size)
 	position += Vector2.ONE * tile_size/2
 	stats_handler.get_info()
-	print(uq_id)
 	print(race.race_name, race.get_race_buffs())
 
+func _process(_delta) -> void:
+	if !stats_handler.is_alive: queue_free()
 #func _unhandled_input(event):
 	#if event.is_action_pressed("Interact"):
 		#stats_handler.level_up()
