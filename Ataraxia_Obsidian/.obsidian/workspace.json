@@ -10,7 +10,7 @@
           {
             "id": "b2251081a41b833b",
             "type": "tabs",
-            "dimension": 19.230769230769234,
+            "dimension": 52.37500000000001,
             "children": [
               {
                 "id": "062c2ec42639314e",
@@ -18,18 +18,31 @@
                 "state": {
                   "type": "markdown",
                   "state": {
-                    "file": "Time.md",
+                    "file": "ROOT.md",
+                    "mode": "source",
+                    "source": false
+                  }
+                }
+              },
+              {
+                "id": "a925815e1c4009ba",
+                "type": "leaf",
+                "state": {
+                  "type": "markdown",
+                  "state": {
+                    "file": "TODO.md",
                     "mode": "source",
                     "source": false
                   }
                 }
               }
-            ]
+            ],
+            "currentTab": 1
           },
           {
             "id": "a70e3c71322cc572",
             "type": "tabs",
-            "dimension": 80.76923076923077,
+            "dimension": 47.625,
             "children": [
               {
                 "id": "a8f4e61ec3d09264",
@@ -110,7 +123,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Time.md",
+                "file": "TODO.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -127,7 +140,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Time.md",
+                "file": "TODO.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -150,7 +163,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Time.md"
+                "file": "TODO.md"
               }
             }
           }
@@ -172,20 +185,25 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "a8f4e61ec3d09264",
+  "active": "a925815e1c4009ba",
   "lastOpenFiles": [
-    "Time.md",
-    "Movement.md",
-    "ROOT.md",
+    "Entity related/Health/Health system.md",
+    "Entity related/Health/Wounds.md",
     "Entity related/Health/Survival.md",
+    "Entity related/Health/Debuffs.md",
+    "Entity related/Battle system.md",
+    "Entity related/Stats.md",
+    "Movement.md",
+    "TODO.md",
+    "Time.md",
+    "ROOT.md",
+    "Entity related/Character related/PC character.md",
+    "Entity related/Character related/Races.md",
     "Entity related/Health",
     "Entity related/Character related/SNPS - Static NPC's.md",
     "Entity related/Character related/NPC and PC mechanics.md",
     "Entity related/Character related/NPC generation.md",
-    "Entity related/Health/Health system.md",
-    "Entity related/Health/Debuffs.md",
     "Open world/Bioms.md",
-    "Entity related/Battle system.md",
     "Open world/Regions.md",
     "Open world/States/High Chiefdom of Norey.md",
     "Open world/States/States.md",
@@ -196,13 +214,9 @@
     "Open world/Regions",
     "Open world/States/Kingdom of Salari.md",
     "Entity related/Character related/NPC Prehistory.md",
-    "Entity related/Character related/PC character.md",
-    "Entity related/Health/Wounds.md",
     "Open world/Random encounters.md",
     "Towns.md",
     "Sites.md",
-    "Environment.md",
-    "Entity related/Character related/DgNPS - Dynamic-generated NPC's.md",
     "Entity related",
     "Entity related/Character related"
   ]
