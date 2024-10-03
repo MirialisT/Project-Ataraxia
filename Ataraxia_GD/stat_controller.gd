@@ -1,6 +1,7 @@
 extends Node
 # This is both stats and health controller, so yeah, im lazy
 class StatsHandler:
+	var is_alive: bool = true
 	var basic_health: int = 100
 	var current_health: int = 1
 	var max_health: int
@@ -28,9 +29,15 @@ class StatsHandler:
 		current_health = max_health
 		
 	func get_health(): return current_health
-	func heal_handle(heal: int): current_health += heal
-	func damage_handle(damage: int): current_health -= damage
-	
+	func heal(heal: int): current_health += heal
+	func restore_health(): current_health = max_health
+	func damage(damage: int):
+		current_health -= damage
+		if current_health <= 0:
+			current_health = 0
+			is_alive = false
+			print("DEAD")
+	func is_alive_check(): return is_alive
 	func get_info():
 		print("Current health: %d, max health: %d, level: %d, spare points: %d" % [current_health, max_health, level, spare_points])
 		print(stats)

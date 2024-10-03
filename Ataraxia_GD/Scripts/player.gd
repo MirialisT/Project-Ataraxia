@@ -21,6 +21,7 @@ func _ready():
 
 func _unhandled_input(event):
 	if event.is_action_pressed("Interact"):
+		stats_handler.level_up()
 		var target = $RayCast2D.get_collider()
 		if target != null:
 			print("Hey", target)
@@ -36,5 +37,7 @@ func raycast_handler(direction):
 	return !$RayCast2D.is_colliding()
 		
 func move(dir):
-	if raycast_handler(dir):
+	if raycast_handler(dir) and stats_handler.is_alive_check():
+		stats_handler.damage(10)
+		stats_handler.get_info()
 		position += inputs[dir] * tile_size
