@@ -1,9 +1,10 @@
 extends Area2D
 
 @export var tile_size = 32
-@onready var race_picker = $PropertyController/RaceController
-@onready var stats_handler = $PropertyController/StatsController
-@onready var race = race_picker.Human.new()
+@onready var race_controller = $PropertyController/RaceController
+@onready var stats_controller = $PropertyController/StatsController
+@onready var race = race_controller.Human.new()
+@onready var stats_handler = stats_controller.StatsHandler.new()
 var inputs = {
 	"move_right": Vector2.RIGHT,
 	"move_left": Vector2.LEFT,
@@ -15,7 +16,8 @@ var inputs = {
 func _ready():
 	position = position.snapped(Vector2.ONE * tile_size)
 	position += Vector2.ONE * tile_size/2
-	print(race.race_name)
+	stats_handler.get_info()
+	print(race.race_name, race.get_race_buffs())
 
 func _unhandled_input(event):
 	if event.is_action_pressed("Interact"):

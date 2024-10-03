@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://cnb07n7st34av"]
+[gd_scene load_steps=3 format=3 uid="uid://cnb07n7st34av"]
 
 [ext_resource type="Script" path="res://race_controller.gd" id="1_1se5k"]
+[ext_resource type="Script" path="res://stat_controller.gd" id="2_ckv4i"]
 
 [node name="Node" type="Node"]
 
@@ -8,3 +9,4 @@
 script = ExtResource("1_1se5k")
 
 [node name="StatsController" type="Node" parent="."]
+script = ExtResource("2_ckv4i")

@@ -10,8 +10,7 @@ class BasicRace:
 		"CHR" = 0
 	}
 	var race_name = "basic_race"
-	func get_stats():
-		return stat_buffs
+	func get_race_buffs(): return stat_buffs
 
 class Human extends BasicRace:
 	func _init():
@@ -19,5 +18,5 @@ class Human extends BasicRace:
 		stat_buffs["CHR"] += 1
 		stat_buffs["MAG"] -= 1
 
-func get_race(race_name):
+func get_race(race_name): # switch-case, default = basic_race check
 	if race_name == "human": return Human.new()
