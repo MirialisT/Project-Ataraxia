@@ -5,6 +5,7 @@ class BodyPart:
 	var bp_name = "placeholder_name"
 	var bp_health: int = 100
 	# For later: mix health system with hemorrhage, get wounds with health_dmg + wound_severity
+
 	func _init(bodypart_name):
 		bp_name = bodypart_name
 		log_stat()
@@ -19,6 +20,7 @@ class BodyPart:
 	
 class Body:
 	var bodyparts_container = {
+	# handle eyes, parts that are not intact affect stats + parser description
 		"head": BodyPart.new("head"),
 		"torso": BodyPart.new("torso"),
 		"lefthand": BodyPart.new("lefthand"),

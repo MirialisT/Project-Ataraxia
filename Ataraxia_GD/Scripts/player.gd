@@ -4,7 +4,7 @@ class_name Player
 @export var tile_size = 32
 @onready var race_controller = $PropertyController/RaceController
 @onready var stats_controller = $PropertyController/StatsController
-# @onready var body = $PropertyController/BodyController.Body.new()
+@onready var body = $PropertyController/BodyController.Body.new()
 @onready var race = race_controller.Human.new()
 @onready var stats_handler = stats_controller.StatsHandler.new()
 var inputs = {
@@ -19,7 +19,7 @@ func _ready():
 	position = position.snapped(Vector2.ONE * tile_size)
 	position += Vector2.ONE * tile_size/2
 	stats_handler.get_info()
-	print(race.race_name, race.get_race_buffs())
+	print(race.race_name, " player", race.get_race_buffs())
 
 func _unhandled_input(event):
 	if event.is_action_pressed("Interact"):
