@@ -7,6 +7,10 @@ class_name Player
 @onready var body = $PropertyController/BodyController.Body.new()
 @onready var race = race_controller.Human.new()
 @onready var stats_handler = stats_controller.StatsHandler.new()
+
+# signal time_process(time_amount: int)
+# maybe try singleton time processer?
+# change time on user input (move, action)
 var inputs = {
 	"move_right": Vector2.RIGHT,
 	"move_left": Vector2.LEFT,
@@ -22,6 +26,7 @@ func _ready():
 	print(race.race_name, " player", race.get_race_buffs())
 
 func _unhandled_input(event):
+	# time_process.emit(5)
 	if event.is_action_pressed("Interact"):
 		stats_handler.level_up()
 		var target = $RayCast2D.get_collider()

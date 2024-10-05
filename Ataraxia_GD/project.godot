@@ -19,6 +19,10 @@ config/icon="res://Sprites/icon.svg"
 
 window/size/viewport_height=640
 
+[global_group]
+
+NPC="Non-playable character group"
+
 [input]
 
 move_up={
@@ -51,3 +55,14 @@ Interact={
 
 renderer/rendering_method="gl_compatibility"
 renderer/rendering_method.mobile="gl_compatibility"
+
+[shader_globals]
+
+GLOBAL_TIME_ON={
+"type": "bool",
+"value": false
+}
+GLOBAL_TIME={
+"type": "int",
+"value": 0
+}
