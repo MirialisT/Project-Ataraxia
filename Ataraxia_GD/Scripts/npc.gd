@@ -3,11 +3,9 @@ class_name Entity
 
 @export var npc_name = "changeme"
 @export var tile_size = 32
-@onready var race_controller = $PropertyController/RaceController
-@onready var stats_controller = $PropertyController/StatsController
+@onready var race = $PropertyController/RaceController.Human.new()
+@onready var stats_handler = $PropertyController/StatsController.StatsHandler.new()
 @onready var body = $PropertyController/BodyController.Body.new()
-@onready var race = race_controller.Human.new()
-@onready var stats_handler = stats_controller.StatsHandler.new()
 #var inputs = {
 	#"move_right": Vector2.RIGHT,
 	#"move_left": Vector2.LEFT,

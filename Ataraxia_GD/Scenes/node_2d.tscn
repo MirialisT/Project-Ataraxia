@@ -55,7 +55,7 @@ tile_map_data = PackedByteArray("AAAAAAAABgABAAEAAAAAAAEABgABAAEAAAAAAAIABgABAAE
 tile_set = SubResource("TileSet_kswp6")
 
 [node name="player" type="Area2D" parent="."]
-position = Vector2(544, 320)
+position = Vector2(576, 352)
 collision_layer = 2
 script = ExtResource("2_rse3e")
 
