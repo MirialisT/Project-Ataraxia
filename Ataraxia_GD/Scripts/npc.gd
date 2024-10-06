@@ -2,11 +2,16 @@ extends Area2D
 class_name Entity
 
 @export var npc_name = "changeme"
-@export var race_name = "changeme"
+@export_enum("Human", "Elf") var race_name: String
+@export_enum("Male", "Female", "BeastMale", "BeastFemale") var sex: String
 @export var tile_size = 32
 @onready var race = $PropertyController/RaceController.get_race(race_name, npc_name)
 @onready var stats_handler = $PropertyController/StatsController.StatsHandler.new()
 @onready var body = $PropertyController/BodyController.Body.new()
+var pronouns: Dictionary = {
+	"third_face": "3rd_placeholder",
+	"possesive": "poss_placeholder"
+}
 #var inputs = {
 	#"move_right": Vector2.RIGHT,
 	#"move_left": Vector2.LEFT,
@@ -21,6 +26,7 @@ func get_hit(bodypart_name: String, damage_amount: int, bleed_severity: int):
 	else: update_hbar()
 	
 func _ready():
+	sprite_handler()
 	position = position.snapped(Vector2.ONE * tile_size)
 	position += Vector2.ONE * tile_size/2
 	stats_handler.modify_stats(race.get_race_buffs())
@@ -41,6 +47,20 @@ func update_hbar():
 func ping():
 	if body.is_consious: return "Pong"
 	else: return "silence"
+
+func sprite_handler():
+	var sprite_name: String = race_name + sex
+	print("res://Sprites/NPC/%s.png" % sprite_name)
+	$Sprite2D.texture = load("res://Sprites/NPC/%s.png" % sprite_name)
+	if sex == "Male":
+		pronouns["third_face"] = "he"
+		pronouns["possesive"] = "his"
+	if sex == "Female":
+		pronouns["third_face"] = "she"
+		pronouns["possesive"] = "her"
+	if sex in ["BeastMale", "BeastFemale"]:
+		pronouns["third_face"] = "it"
+		pronouns["possesive"] = "it's"
 #func _process(_delta) -> void:
 	#if !stats_handler.is_alive: queue_free()
 

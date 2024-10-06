@@ -31,7 +31,7 @@ class BodyPart:
 	
 class Body:
 	# For later: mix health system with hemorrhage
-	var sex
+	var sex: String
 	var max_health: int
 	var current_health: int = 1
 	var total_blood: int = 5000

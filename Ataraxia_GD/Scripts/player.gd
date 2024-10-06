@@ -57,12 +57,16 @@ func stop_combat():
 	in_combat = false
 
 func initiate_interaction(target: Entity):
+	var target_3d: String = target.pronouns["third_face"]
+	var target_ps: String = target.pronouns["possesive"]
 	print("It can be alive, either NPC or beast")
-	if target.npc_name != null: print("Hey, it's has name, hello %s %s!" % [target.race.race_name, target.npc_name])
-	if target.body.is_alive: print("Oh, it's actually alive, has %d health." % target.body.get_current_health())
-	else: print("It's already dead...")
-	if target.body.is_consious: print("It can react to my actions.")
-	else: print("It can not react to my actions.")
+	if target.npc_name != null:
+		print("Hey, it's %s, %s name is %s!" % [target.race.race_name, target_ps, target.npc_name])
+	if target.body.is_alive:
+		print("Oh, %s is actually alive, has %d health." % [target_3d, target.body.get_current_health()])
+	else: print("Well, %s is already dead..." % target_3d)
+	if target.body.is_consious: print("%s can react to my actions." % target_3d.capitalize())
+	else: print("%s can not react to my actions." % target_3d.capitalize())
 	print("Ping - %s: %s" % [target.npc_name, target.ping()])
 	
 
