@@ -17,6 +17,10 @@ class_name Entity
 func handle_damage(damage_amount: int):
 	$hbar.value = stats_handler.damage(damage_amount)
 	
+func get_hit(bodypart_name: String, damage_amount: int, bleed_severity: int):
+	print("%s got hit by player in %s by %d with bleed severity %d" % [npc_name, bodypart_name, damage_amount, bleed_severity])
+	body.bodypart_get_hit(bodypart_name, 5, 1)
+	
 func _ready():
 	position = position.snapped(Vector2.ONE * tile_size)
 	position += Vector2.ONE * tile_size/2
@@ -25,8 +29,8 @@ func _ready():
 	print("\n")
 	$hbar.value = stats_handler.get_health()
 
-func _process(_delta) -> void:
-	if !stats_handler.is_alive: queue_free()
+#func _process(_delta) -> void:
+	#if !stats_handler.is_alive: queue_free()
 #func _unhandled_input(event):
 	#if event.is_action_pressed("Interact"):
 		#stats_handler.level_up()

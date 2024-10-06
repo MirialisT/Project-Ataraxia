@@ -37,11 +37,17 @@ class Body:
 		"leftleg": BodyPart.new("leftleg"),
 		"rightleg": BodyPart.new("rightleg")
 	}
+	func get_bodypart(bodypart_name):
+		return bodyparts_container[bodypart_name]
+		
 	func get_total_health():
 		var total_hp = 0
 		for part in bodyparts_container.values():
 			total_hp += part.bp_health
 		return total_hp
+	
+	func _on_part_got_hit(bodypart_name, damage_amount:int , bleed_severity:int = 0):
+		print("Got hit into %s by %d with %d bleed" % [bodypart_name, damage_amount, bleed_severity])
 		
 	func bodypart_get_hit(bodypart_name, damage_amount: int, bleed_severity: int = 0):
 		var target_bp = bodyparts_container[bodypart_name]

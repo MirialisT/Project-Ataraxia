@@ -1,10 +1,9 @@
-[gd_scene load_steps=10 format=4 uid="uid://y5q6m6r8khvj"]
+[gd_scene load_steps=9 format=4 uid="uid://y5q6m6r8khvj"]
 
 [ext_resource type="Texture2D" uid="uid://dkc0egstyi8no" path="res://Tilesets/town-building.png" id="1_mesie"]
 [ext_resource type="Script" path="res://Scripts/player.gd" id="2_rse3e"]
 [ext_resource type="Texture2D" uid="uid://dpdlwou6fgyck" path="res://Sprites/icon.svg" id="3_dh484"]
 [ext_resource type="PackedScene" uid="uid://cnb07n7st34av" path="res://Scenes/PropertyController.tscn" id="4_wj8c6"]
-[ext_resource type="PackedScene" uid="uid://dvnmegrwx1sd8" path="res://Scenes/Combat.tscn" id="5_ojr7h"]
 [ext_resource type="Script" path="res://Scripts/npc.gd" id="5_orh1u"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_wo5ah"]
@@ -59,6 +58,7 @@ tile_set = SubResource("TileSet_kswp6")
 position = Vector2(576, 352)
 collision_layer = 2
 script = ExtResource("2_rse3e")
+tile_size = null
 
 [node name="Sprite2D" type="Sprite2D" parent="player"]
 scale = Vector2(0.21875, 0.21875)
@@ -75,13 +75,6 @@ collide_with_areas = true
 [node name="UI" type="CanvasLayer" parent="player"]
 
 [node name="PropertyController" parent="player" instance=ExtResource("4_wj8c6")]
-
-[node name="Combat" parent="player" instance=ExtResource("5_ojr7h")]
-visible = false
-offset_left = -575.0
-offset_top = -351.0
-offset_right = -575.0
-offset_bottom = -351.0
 
 [node name="Alex" type="Area2D" parent="."]
 position = Vector2(572, 195)

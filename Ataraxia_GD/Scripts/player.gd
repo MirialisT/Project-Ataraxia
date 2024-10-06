@@ -25,8 +25,12 @@ func _ready():
 
 func _unhandled_input(event):
 	# time_process.emit(5)
+	var target = $RayCast2D.get_collider()
+	if event.is_action_pressed("DEBUG_TRIGGER_COMBAT"):
+		if target != null and target is Entity:
+			$Combat.set_visible(true)
+			$Combat.enemy_object = target
 	if event.is_action_pressed("Interact"):
-		var target = $RayCast2D.get_collider()
 		if target != null:
 			print("Hey ", target)
 		if target is Entity:
@@ -35,7 +39,6 @@ func _unhandled_input(event):
 			if target.stats_handler.is_alive:
 				print("Oh, it's actually alive, has %d health, hitting!" % target.stats_handler.current_health)
 				target.handle_damage(5)
-				target.body.bodypart_get_hit("leftleg", 5, 1)
 			else: print("It's already dead...")
 	for dir in inputs.keys():
 		if event.is_action_pressed(dir):
@@ -49,6 +52,7 @@ func collision_handler(direction):
 	return !$RayCast2D.is_colliding()
 		
 func move(dir):
+	$Combat.set_visible(false)
 	#stats_handler.get_info()
 	if collision_handler(dir):
 		position += inputs[dir] * tile_size
