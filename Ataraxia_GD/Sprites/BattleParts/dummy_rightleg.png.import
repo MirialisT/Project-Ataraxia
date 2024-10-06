@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://708ygyulfvmg"
-path="res://.godot/imported/leftleg_placeholder.svg-4f482f9c1023539b6a24b9b0cc001a13.ctex"
+uid="uid://b2t20cwg860ce"
+path="res://.godot/imported/dummy_rightleg.png-4f3d2016aca15b90174b1f53786e8746.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Sprites/BattleParts/leftleg_placeholder.svg"
-dest_files=["res://.godot/imported/leftleg_placeholder.svg-4f482f9c1023539b6a24b9b0cc001a13.ctex"]
+source_file="res://Sprites/BattleParts/dummy_rightleg.png"
+dest_files=["res://.godot/imported/dummy_rightleg.png-4f3d2016aca15b90174b1f53786e8746.ctex"]
 
 [params]
 
@@ -32,6 +32,3 @@ process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
 detect_3d/compress_to=1
-svg/scale=1.0
-editor/scale_with_editor_scale=false
-editor/convert_colors_with_editor_theme=false

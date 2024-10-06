@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://kmbjw5a5tgn8"
-path="res://.godot/imported/torso_placeholder.svg-5052c48541c1c77b67dec3fee1fa73ec.ctex"
+uid="uid://daby4utxmpre"
+path="res://.godot/imported/dummy_head.png-0ce868a23bc19aa44f80135c552874dc.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Sprites/BattleParts/torso_placeholder.svg"
-dest_files=["res://.godot/imported/torso_placeholder.svg-5052c48541c1c77b67dec3fee1fa73ec.ctex"]
+source_file="res://Sprites/BattleParts/dummy_head.png"
+dest_files=["res://.godot/imported/dummy_head.png-0ce868a23bc19aa44f80135c552874dc.ctex"]
 
 [params]
 
@@ -32,6 +32,3 @@ process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
 detect_3d/compress_to=1
-svg/scale=1.0
-editor/scale_with_editor_scale=false
-editor/convert_colors_with_editor_theme=false

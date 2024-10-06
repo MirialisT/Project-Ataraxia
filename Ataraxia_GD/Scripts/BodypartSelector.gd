@@ -14,3 +14,6 @@ func _pressed() -> void:
 	print("Hitting part %s by %d with %d bleed severity" % [bodypart_name, 5, 0])
 	enemy_part_got_hit.emit(bodypart_name, 5, 0)
 	pass
+
+func _on_mouse_entered():
+	print("HEAD")
