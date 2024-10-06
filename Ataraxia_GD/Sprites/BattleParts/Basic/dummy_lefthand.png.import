@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://daby4utxmpre"
-path="res://.godot/imported/dummy_head.png-0ce868a23bc19aa44f80135c552874dc.ctex"
+uid="uid://c2y7ojs5nrmq8"
+path="res://.godot/imported/dummy_lefthand.png-ecf28b045fdaf29ecda8cc56a438c75f.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Sprites/BattleParts/dummy_head.png"
-dest_files=["res://.godot/imported/dummy_head.png-0ce868a23bc19aa44f80135c552874dc.ctex"]
+source_file="res://Sprites/BattleParts/Basic/dummy_lefthand.png"
+dest_files=["res://.godot/imported/dummy_lefthand.png-ecf28b045fdaf29ecda8cc56a438c75f.ctex"]
 
 [params]
 

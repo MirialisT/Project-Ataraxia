@@ -37,6 +37,10 @@ func handle_death():
 
 func update_hbar():
 	$hbar.value = body.get_current_health()
+
+func ping():
+	if body.is_consious: return "Pong"
+	else: return "silence"
 #func _process(_delta) -> void:
 	#if !stats_handler.is_alive: queue_free()
 

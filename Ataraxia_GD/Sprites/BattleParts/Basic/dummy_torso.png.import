@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c1enja3c4rsu"
-path="res://.godot/imported/dummy_righthand.png-a00b67df51ef3671850cdf32e58d602a.ctex"
+uid="uid://casxvmo7ycx14"
+path="res://.godot/imported/dummy_torso.png-984ad96179191a00841a5bb3a6799369.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Sprites/BattleParts/dummy_righthand.png"
-dest_files=["res://.godot/imported/dummy_righthand.png-a00b67df51ef3671850cdf32e58d602a.ctex"]
+source_file="res://Sprites/BattleParts/Basic/dummy_torso.png"
+dest_files=["res://.godot/imported/dummy_torso.png-984ad96179191a00841a5bb3a6799369.ctex"]
 
 [params]
 

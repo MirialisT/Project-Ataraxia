@@ -5,7 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://dpdlwou6fgyck" path="res://Sprites/icon.svg" id="3_dh484"]
 [ext_resource type="PackedScene" uid="uid://cnb07n7st34av" path="res://Scenes/PropertyController.tscn" id="4_wj8c6"]
 [ext_resource type="PackedScene" uid="uid://dvnmegrwx1sd8" path="res://Scenes/Combat.tscn" id="5_ojr7h"]
-[ext_resource type="Script" path="res://Scripts/npc.gd" id="5_orh1u"]
+[ext_resource type="PackedScene" uid="uid://bbtf3jmfwjbx7" path="res://Scenes/GenericNPC.tscn" id="7_ay6mu"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_wo5ah"]
 texture = ExtResource("1_mesie")
@@ -78,69 +78,21 @@ collide_with_areas = true
 
 [node name="Combat" parent="player" instance=ExtResource("5_ojr7h")]
 visible = false
-offset_left = -575.0
-offset_top = -351.0
-offset_right = -575.0
-offset_bottom = -351.0
+offset_left = 6.0
+offset_top = -71.0
+offset_right = 6.0
+offset_bottom = -71.0
 
-[node name="Alex" type="Area2D" parent="."]
-position = Vector2(572, 195)
-collision_layer = 2
-script = ExtResource("5_orh1u")
+[node name="Alex" parent="." instance=ExtResource("7_ay6mu")]
 npc_name = "Alex"
 race_name = "Human"
 
-[node name="Sprite2D" type="Sprite2D" parent="Alex"]
-scale = Vector2(0.21875, 0.21875)
-texture = ExtResource("3_dh484")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Alex"]
-shape = SubResource("RectangleShape2D_xvac6")
-
-[node name="RayCast2D" type="RayCast2D" parent="Alex"]
-target_position = Vector2(0, 32)
-collision_mask = 3
-collide_with_areas = true
-
-[node name="UI" type="CanvasLayer" parent="Alex"]
-
-[node name="PropertyController" parent="Alex" instance=ExtResource("4_wj8c6")]
-
-[node name="hbar" type="ProgressBar" parent="Alex"]
-offset_left = -14.0
-offset_top = -28.0
-offset_right = 15.0
-offset_bottom = -16.0
-step = 1.0
-show_percentage = false
-
-[node name="Sera" type="Area2D" parent="."]
-position = Vector2(467, 195)
-collision_layer = 2
-script = ExtResource("5_orh1u")
+[node name="Sera" parent="." instance=ExtResource("7_ay6mu")]
+position = Vector2(92, 242)
 npc_name = "Sera"
 race_name = "Elf"
 
-[node name="Sprite2D" type="Sprite2D" parent="Sera"]
-scale = Vector2(0.21875, 0.21875)
-texture = ExtResource("3_dh484")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Sera"]
-shape = SubResource("RectangleShape2D_xvac6")
-
-[node name="RayCast2D" type="RayCast2D" parent="Sera"]
-target_position = Vector2(0, 32)
-collision_mask = 3
-collide_with_areas = true
-
-[node name="UI" type="CanvasLayer" parent="Sera"]
-
-[node name="PropertyController" parent="Sera" instance=ExtResource("4_wj8c6")]
-
-[node name="hbar" type="ProgressBar" parent="Sera"]
-offset_left = -14.0
-offset_top = -28.0
-offset_right = 15.0
-offset_bottom = -16.0
-step = 10.0
-show_percentage = false
+[node name="Mila" parent="." instance=ExtResource("7_ay6mu")]
+position = Vector2(877, 202)
+npc_name = "Mila"
+race_name = "Human"

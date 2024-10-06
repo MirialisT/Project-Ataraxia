@@ -9,7 +9,9 @@ func _ready() -> void:
 func _on_enemy_part_got_hit(bodypart_name: String, damage_amount: int, bleed_severity: int) -> void:
 	enemy_object.get_hit(bodypart_name, damage_amount, bleed_severity)
 	if not enemy_object.body.get_bodypart_status(bodypart_name): enemy_part_destroyed(bodypart_name)
-	if not enemy_object.body.is_alive: self.visible = false
+	if not enemy_object.body.is_alive:
+		self.visible = false
+		player_object.in_combat = false
 	
 func enemy_part_destroyed(bodypart_name: String):
 	for part in $Enemy.get_children():

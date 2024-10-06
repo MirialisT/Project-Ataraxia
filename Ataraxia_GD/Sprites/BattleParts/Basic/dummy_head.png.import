@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dj5yq7piw7cre"
-path="res://.godot/imported/dummy_torso-hover.png-227534d2f490a4358e7599d8da74049c.ctex"
+uid="uid://daby4utxmpre"
+path="res://.godot/imported/dummy_head.png-f8861c5898c6dd56bab798642f01e2cd.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Sprites/BattleParts/dummy_torso-hover.png"
-dest_files=["res://.godot/imported/dummy_torso-hover.png-227534d2f490a4358e7599d8da74049c.ctex"]
+source_file="res://Sprites/BattleParts/Basic/dummy_head.png"
+dest_files=["res://.godot/imported/dummy_head.png-f8861c5898c6dd56bab798642f01e2cd.ctex"]
 
 [params]
 

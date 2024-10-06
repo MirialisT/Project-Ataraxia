@@ -5,6 +5,7 @@ class_name Player
 @onready var race = $PropertyController/RaceController.Human.new()
 @onready var body = $PropertyController/BodyController.Body.new()
 @onready var stats_handler = $PropertyController/StatsController.StatsHandler.new()
+var in_combat: bool = false
 # signal time_process(time_amount: int)
 # maybe try singleton time processer?
 # change time on user input (move, action)
@@ -31,21 +32,29 @@ func _ready():
 func _unhandled_input(event):
 	# this catches mouse too, need to handle
 	# time_process.emit(5)
-	var target = $RayCast2D.get_collider()
-	if event.is_action_pressed("DEBUG_TRIGGER_COMBAT"):
-		if target != null and target is Entity and target.body.is_alive: initiate_combat(target)
-	if event.is_action_pressed("Interact"):
-		if target != null: initiate_interaction(target)
+	if !in_combat:
+		var target = $RayCast2D.get_collider()
+		if event.is_action_pressed("DEBUG_TRIGGER_COMBAT"):
+			if target != null and target is Entity and target.body.is_alive: initiate_combat(target)
+		if event.is_action_pressed("Interact"):
+			if target != null and target is Entity: initiate_interaction(target)
 	for dir in inputs.keys():
 		if event.is_action_pressed(dir):
-			$Combat.set_visible(false)
+			if in_combat: stop_combat()
 			move(dir)
 			
 func initiate_combat(target: Entity):
 	# change combat to completely separate scene, or make whole overlay
 	$Combat.enemy_object = target
+	$Combat.player_object = self
+	in_combat = true
 	$Combat.prepare()
 	$Combat.set_visible(true)
+
+func stop_combat():
+	print("Leaving combat")
+	$Combat.set_visible(false)
+	in_combat = false
 
 func initiate_interaction(target: Entity):
 	print("It can be alive, either NPC or beast")
@@ -54,6 +63,7 @@ func initiate_interaction(target: Entity):
 	else: print("It's already dead...")
 	if target.body.is_consious: print("It can react to my actions.")
 	else: print("It can not react to my actions.")
+	print("Ping - %s: %s" % [target.npc_name, target.ping()])
 	
 
 func collision_handler(direction):
