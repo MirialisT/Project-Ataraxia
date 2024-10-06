@@ -50,8 +50,7 @@ func ping():
 
 func sprite_handler():
 	var sprite_name: String = race_name + sex
-	print("res://Sprites/NPC/%s.png" % sprite_name)
-	$Sprite2D.texture = load("res://Sprites/NPC/%s.png" % sprite_name)
+	$Sprite2D.texture = load("res://Sprites/NPC/%s/%s.png" % [race_name, sprite_name])
 	if sex == "Male":
 		pronouns["third_face"] = "he"
 		pronouns["possesive"] = "his"

@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://dcs1ic3215mgp"
-path="res://.godot/imported/ElfMale.png-a6e6eb6b974f58c5f41722ae022ba1b2.ctex"
+path="res://.godot/imported/ElfMale.png-99d0cbc2d14e3c026a7d7b91d2208649.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Sprites/NPC/ElfMale.png"
-dest_files=["res://.godot/imported/ElfMale.png-a6e6eb6b974f58c5f41722ae022ba1b2.ctex"]
+source_file="res://Sprites/NPC/Elf/ElfMale.png"
+dest_files=["res://.godot/imported/ElfMale.png-99d0cbc2d14e3c026a7d7b91d2208649.ctex"]
 
 [params]
 

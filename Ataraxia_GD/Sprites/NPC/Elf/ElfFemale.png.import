@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://73t02v0c6tsj"
-path="res://.godot/imported/ElfFemale.png-0ac0cc05362a838f961ca3ac5ed04214.ctex"
+path="res://.godot/imported/ElfFemale.png-23a8a8aa1edf6ce55062301279d82183.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Sprites/NPC/ElfFemale.png"
-dest_files=["res://.godot/imported/ElfFemale.png-0ac0cc05362a838f961ca3ac5ed04214.ctex"]
+source_file="res://Sprites/NPC/Elf/ElfFemale.png"
+dest_files=["res://.godot/imported/ElfFemale.png-23a8a8aa1edf6ce55062301279d82183.ctex"]
 
 [params]
 

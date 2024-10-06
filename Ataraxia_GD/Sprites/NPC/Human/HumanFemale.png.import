@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://brhy43q4402ik"
-path="res://.godot/imported/HumanMale.png-964351fdd529e572ad43fe9a35b5cf93.ctex"
+uid="uid://dwkksein7e700"
+path="res://.godot/imported/HumanFemale.png-0e58293c219c6ec2acf88df023a3a888.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Sprites/NPC/HumanMale.png"
-dest_files=["res://.godot/imported/HumanMale.png-964351fdd529e572ad43fe9a35b5cf93.ctex"]
+source_file="res://Sprites/NPC/Human/HumanFemale.png"
+dest_files=["res://.godot/imported/HumanFemale.png-0e58293c219c6ec2acf88df023a3a888.ctex"]
 
 [params]
 
