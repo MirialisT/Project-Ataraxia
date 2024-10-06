@@ -34,6 +34,8 @@ func _unhandled_input(event):
 	# time_process.emit(5)
 	if !in_combat:
 		var target = $RayCast2D.get_collider()
+		if target is Entity: $UI.visible = true
+		else: $UI.visible = false
 		if event.is_action_pressed("DEBUG_TRIGGER_COMBAT"):
 			if target != null and target is Entity and target.body.is_alive: initiate_combat(target)
 		if event.is_action_pressed("Interact"):

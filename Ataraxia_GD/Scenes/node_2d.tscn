@@ -72,6 +72,19 @@ collision_mask = 3
 collide_with_areas = true
 
 [node name="UI" type="CanvasLayer" parent="player"]
+visible = false
+
+[node name="Actions" type="PanelContainer" parent="player/UI"]
+offset_left = 17.0
+offset_top = 444.0
+offset_right = 57.0
+offset_bottom = 484.0
+scale = Vector2(1.21492, 1.37127)
+
+[node name="Label" type="Label" parent="player/UI/Actions"]
+layout_mode = 2
+text = "Shift-F - combat
+Shift-space - interact (only log)"
 
 [node name="PropertyController" parent="player" instance=ExtResource("4_wj8c6")]
 

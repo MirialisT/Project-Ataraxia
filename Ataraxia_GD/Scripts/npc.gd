@@ -27,7 +27,8 @@ func get_hit(bodypart_name: String, damage_amount: int, bleed_severity: int):
 
 func _mouse_enter() -> void:
 	# maybe change to RichText + statuses?
-	$PanelContainer/Label.text = "%s %s %s\n%d/%d" % [npc_name, sex, race_name, body.get_current_health(), body.get_max_health()]
+	$PanelContainer/Label.text = "%s %s %s\n%d/%d\n" % [npc_name, sex, race_name, body.get_current_health(), body.get_max_health()]
+	$PanelContainer/Label.text += "Alive: %s, consious: %s" % [body.is_alive, body.is_consious]
 	$PanelContainer/Label.visible = true
 	$PanelContainer.visible = true
 
