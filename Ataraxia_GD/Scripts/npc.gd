@@ -24,6 +24,16 @@ func get_hit(bodypart_name: String, damage_amount: int, bleed_severity: int):
 	body.bodypart_get_hit(bodypart_name, damage_amount, bleed_severity)
 	if !body.is_alive: handle_death()
 	else: update_hbar()
+
+func _mouse_enter() -> void:
+	# maybe change to RichText + statuses?
+	$PanelContainer/Label.text = "%s %s %s\n%d/%d" % [npc_name, sex, race_name, body.get_current_health(), body.get_max_health()]
+	$PanelContainer/Label.visible = true
+	$PanelContainer.visible = true
+
+func _mouse_exit() -> void:
+	$PanelContainer/Label.visible = false
+	$PanelContainer.visible = false
 	
 func _ready():
 	sprite_handler()
