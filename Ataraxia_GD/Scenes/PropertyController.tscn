@@ -1,8 +1,8 @@
 [gd_scene load_steps=4 format=3 uid="uid://cnb07n7st34av"]
 
-[ext_resource type="Script" path="res://Scripts/race_controller.gd" id="1_1se5k"]
-[ext_resource type="Script" path="res://Scripts/stat_controller.gd" id="2_ckv4i"]
-[ext_resource type="Script" path="res://Scripts/body_controller.gd" id="3_i2pmj"]
+[ext_resource type="Script" path="res://Scripts/RaceController.gd" id="1_1se5k"]
+[ext_resource type="Script" path="res://Scripts/StatsController.gd" id="2_ckv4i"]
+[ext_resource type="Script" path="res://Scripts/BodyController.gd" id="3_i2pmj"]
 
 [node name="Node" type="Node"]
 

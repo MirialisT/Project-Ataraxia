@@ -2,8 +2,9 @@ extends Area2D
 class_name Entity
 
 @export var npc_name = "changeme"
+@export var race_name = "changeme"
 @export var tile_size = 32
-@onready var race = $PropertyController/RaceController.Human.new()
+@onready var race = $PropertyController/RaceController.get_race(race_name, npc_name)
 @onready var stats_handler = $PropertyController/StatsController.StatsHandler.new()
 @onready var body = $PropertyController/BodyController.Body.new()
 #var inputs = {
@@ -13,33 +14,31 @@ class_name Entity
 	#"move_down": Vector2.DOWN
 	#}
 			
-# Called when the node enters the scene tree for the first time.
-func handle_damage(damage_amount: int):
-	$hbar.value = stats_handler.damage(damage_amount)
-	
 func get_hit(bodypart_name: String, damage_amount: int, bleed_severity: int):
 	print("%s got hit by player in %s by %d with bleed severity %d" % [npc_name, bodypart_name, damage_amount, bleed_severity])
-	body.bodypart_get_hit(bodypart_name, 5, 1)
+	body.bodypart_get_hit(bodypart_name, damage_amount, bleed_severity)
+	if !body.is_alive: handle_death()
+	else: update_hbar()
 	
 func _ready():
 	position = position.snapped(Vector2.ONE * tile_size)
 	position += Vector2.ONE * tile_size/2
-	stats_handler.get_info()
-	print(race.race_name, npc_name, race.get_race_buffs())
+	stats_handler.modify_stats(race.get_race_buffs())
+	$hbar.max_value = body.get_max_health()
+	print("%s %s, level %d, spare points %d" % [race.race_name, npc_name, stats_handler.level, stats_handler.spare_points])
+	print("Current race buffs: ", race.get_race_buffs())
+	print("Current stats: ", stats_handler.get_stats_dict())
+	print("%d/%d" % [body.get_max_health(), body.get_current_health()])
+	update_hbar()
 	print("\n")
-	$hbar.value = stats_handler.get_health()
 
+func handle_death():
+	$hbar.queue_free()
+
+func update_hbar():
+	$hbar.value = body.get_current_health()
 #func _process(_delta) -> void:
 	#if !stats_handler.is_alive: queue_free()
-#func _unhandled_input(event):
-	#if event.is_action_pressed("Interact"):
-		#stats_handler.level_up()
-		#var target = $RayCast2D.get_collider()
-		#if target != null:
-			#print("Hey ",target)
-	#for dir in inputs.keys():
-		#if event.is_action_pressed(dir):
-			#move(dir)
 
 #func collision_handler(direction):
 	#var raycast_x = tile_size * inputs[direction][0]
