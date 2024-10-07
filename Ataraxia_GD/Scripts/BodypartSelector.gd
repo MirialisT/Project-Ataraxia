@@ -10,10 +10,7 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _pressed() -> void:
+	print("Call %s | damage comes from here now" % _pressed)
 	# range for bleeding, damage amount on UI
-	print("Hitting part %s by %d with %d bleed severity" % [bodypart_name, 5, 0])
+	# print("Hitting part %s by %d with %d bleed severity" % [bodypart_name, 5, 0])
 	enemy_part_got_hit.emit(bodypart_name, 5, 0)
-	pass
-
-func _on_mouse_entered():
-	print("HEAD")

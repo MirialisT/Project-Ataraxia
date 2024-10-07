@@ -14,11 +14,18 @@ func _on_enemy_part_got_hit(bodypart_name: String, damage_amount: int, bleed_sev
 		player_object.in_combat = false
 	
 func enemy_part_destroyed(bodypart_name: String):
+	 #print("Call %s" % self.enemy_part_destroyed)
 	for part in $Enemy.get_children():
 		if part.bodypart_name == bodypart_name:
-			print(part.get_self_modulate())
 			part.set_self_modulate(Color(1, 1, 1, 0.25))
-
+#Hitting part torso by 5 with 0 bleed severity
+#Alex got hit by player in torso by 5 with bleed severity 0
+#Bodypart torso is broken, not bleeding
+#BodyPart:torso:0:true:false:0
+#InputEventKey: keycode=4194322 (Down), mods=none, physical=false, location=unspecified, pressed=false, echo=false
+#InputEventKey: keycode=4194322 (Down), mods=none, physical=false, location=unspecified, pressed=true, echo=false
+#Got movement move_down
+#Leaving combat
 func prepare():
 	print("Fighting %s" % enemy_object.npc_name)
 	for part in $Enemy.get_children():

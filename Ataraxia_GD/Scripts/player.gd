@@ -31,7 +31,9 @@ func _ready():
 
 func _unhandled_input(event):
 	# this catches mouse too, need to handle
+	# ignores mouse -> ignores mouse+keyboard
 	# time_process.emit(5)
+	# print("In-combat:%s" % in_combat, event)
 	if !in_combat:
 		var target = $RayCast2D.get_collider()
 		if target is Entity: $UI.visible = true
@@ -40,10 +42,17 @@ func _unhandled_input(event):
 			if target != null and target is Entity and target.body.is_alive: initiate_combat(target)
 		if event.is_action_pressed("Interact"):
 			if target != null and target is Entity: initiate_interaction(target)
+	# switch from "for - in", to match maybe?
 	for dir in inputs.keys():
-		if event.is_action_pressed(dir):
-			if in_combat: stop_combat()
-			move(dir)
+		if in_combat:
+			if event.is_action(dir):
+				# print("Got movement from is_action: %s" % dir)
+				stop_combat()
+				move(dir)
+		else:
+			if event.is_action_pressed(dir):
+				# print("Got movement %s" % dir)
+				move(dir)
 			
 func initiate_combat(target: Entity):
 	# change combat to completely separate scene, or make whole overlay
