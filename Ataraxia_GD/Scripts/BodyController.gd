@@ -30,7 +30,7 @@ class BodyPart:
 		print("BodyPart:%s:%d:%s:%s:%d" % [bp_name, bp_health_current, is_intact, is_not_broken, wound_severity])
 	
 class Body:
-	# For later: mix health system with hemorrhage
+	# TODO: handle bleeding, handle on hit for now
 	var sex: String
 	var max_health: int
 	var current_health: int = 1
@@ -38,7 +38,7 @@ class Body:
 	var is_alive: bool = true
 	var is_consious: bool = true
 	var bodyparts_container = {
-	# handle eyes, parts that are not intact affect stats + parser description
+	# TODO: handle eyes, parts that are not intact affect stats + parser description
 		"head": BodyPart.new("head", true),
 		"torso": BodyPart.new("torso", true),
 		"lefthand": BodyPart.new("lefthand"),
@@ -86,7 +86,7 @@ class Body:
 	func get_current_health():
 		return current_health
 		
-	# rewrite logic, get stunned on low health
+	# TODO: rewrite logic, get stunned on low health
 	func bodypart_get_hit(bodypart_name, damage_amount: int, bleed_severity: int = 0):
 		var target_bp = bodyparts_container[bodypart_name]
 		if target_bp.is_intact and target_bp.is_not_broken:

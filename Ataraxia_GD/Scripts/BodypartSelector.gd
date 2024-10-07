@@ -8,7 +8,8 @@ func _ready() -> void:
 	pass # Replace with function body.
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
+# TODO: battle-system related
+# Switch to bodypart selection with hit confirmation. Maybe do before weapons, make separate buttons for debug
 func _pressed() -> void:
 	print("Call %s | damage comes from here now" % _pressed)
 	# range for bleeding, damage amount on UI

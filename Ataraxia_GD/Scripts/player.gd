@@ -1,11 +1,17 @@
 extends Area2D
 class_name Player
 
-@export var tile_size = 32
+@export var tile_size = 32 # maybe go for upscaling? 32->64
 @onready var race = $PropertyController/RaceController.Human.new()
 @onready var body = $PropertyController/BodyController.Body.new()
 @onready var stats_handler = $PropertyController/StatsController.StatsHandler.new()
+# TODO: systems:
+# Inventory (for both PC and NPC)
+# Items (only basic)
+# Armor and logic in either BodyController or CombatHandler or here or make a separate handler
+# Weapons with different damage type (blunt, cut and pierce for now)
 var in_combat: bool = false
+# TODO: time-related
 # signal time_process(time_amount: int)
 # maybe try singleton time processer?
 # change time on user input (move, action)
@@ -18,7 +24,7 @@ var inputs = {
 	"move_down": Vector2.DOWN
 	}
 			
-# Called when the node enters the scene tree for the first time.
+
 func _ready():
 	position = position.snapped(Vector2.ONE * tile_size)
 	position += Vector2.ONE * tile_size/2
@@ -42,8 +48,9 @@ func _unhandled_input(event):
 			if target != null and target is Entity and target.body.is_alive: initiate_combat(target)
 		if event.is_action_pressed("Interact"):
 			if target != null and target is Entity: initiate_interaction(target)
-	# switch from "for - in", to match maybe?
+	# switch from "for - in", to match maybe? | Works for now
 	for dir in inputs.keys():
+		# Do not touch for now, solved key ghosting after fight
 		if in_combat:
 			if event.is_action(dir):
 				# print("Got movement from is_action: %s" % dir)
@@ -55,7 +62,7 @@ func _unhandled_input(event):
 				move(dir)
 			
 func initiate_combat(target: Entity):
-	# change combat to completely separate scene, or make whole overlay
+	# TODO: change combat to completely separate scene, or make whole overlay
 	$Combat.enemy_object = target
 	$Combat.player_object = self
 	in_combat = true
