@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://ckeledldkb38a"
-path="res://.godot/imported/dummy_head.png-260f571a367c02ca4337ab09a472677e.ctex"
+path="res://.godot/imported/dummy_head.png-7f55afbd2b9037e433996fd7367683e6.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Sprites/BattleParts/hover/dummy_head.png"
-dest_files=["res://.godot/imported/dummy_head.png-260f571a367c02ca4337ab09a472677e.ctex"]
+source_file="res://Sprites/BattleParts/Hover/dummy_head.png"
+dest_files=["res://.godot/imported/dummy_head.png-7f55afbd2b9037e433996fd7367683e6.ctex"]
 
 [params]
 

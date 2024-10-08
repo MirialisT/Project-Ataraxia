@@ -82,8 +82,4 @@ func sprite_handler():
 	#$RayCast2D.target_position = Vector2(raycast_x, raycast_y)
 	#$RayCast2D.force_raycast_update()
 	#return !$RayCast2D.is_colliding()
-		
-#func move(dir):
-	#stats_handler.get_info()
-	#if collision_handler(dir):
-		#position += inputs[dir] * tile_size
+	

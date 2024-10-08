@@ -10,7 +10,6 @@ class_name Player
 # TODO: systems:
 # Inventory (for both PC and NPC)
 # UPD1: Items (only basic): do it via Resources, check link on side for info
-# Armor and logic in either BodyController or CombatHandler or here or make a separate handler
 # 	Armor upd: handle with Resource class, damage process is still to come up with
 # Weapons with different damage type (blunt, cut and pierce for now)
 #	-||- with armor and items, Resource -> class name handling?

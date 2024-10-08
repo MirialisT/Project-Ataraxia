@@ -17,7 +17,6 @@ func _on_enemy_part_got_hit(bodypart_name: String, damage_amount: int, bleed_sev
 		player_object.in_combat = false
 	
 func enemy_part_destroyed(bodypart_name: String):
-	 #print("Call %s" % self.enemy_part_destroyed)
 	for part in $Enemy.get_children():
 		if part.bodypart_name == bodypart_name:
 			part.set_self_modulate(Color(1, 1, 1, 0.25))
