@@ -1,15 +1,19 @@
 extends Area2D
 class_name Player
 
-@export var tile_size = 32 # maybe go for upscaling? 32->64
+@export var tile_size = 32
+# TODO: graphic-related
+# maybe go for upscaling? 32->64 | leave it 32 for now
 @onready var race = $PropertyController/RaceController.Human.new()
 @onready var body = $PropertyController/BodyController.Body.new()
 @onready var stats_handler = $PropertyController/StatsController.StatsHandler.new()
 # TODO: systems:
 # Inventory (for both PC and NPC)
-# Items (only basic)
+# UPD1: Items (only basic): do it via Resources, check link on side for info
 # Armor and logic in either BodyController or CombatHandler or here or make a separate handler
+# 	Armor upd: handle with Resource class, damage process is still to come up with
 # Weapons with different damage type (blunt, cut and pierce for now)
+#	-||- with armor and items, Resource -> class name handling?
 var in_combat: bool = false
 # TODO: time-related
 # signal time_process(time_amount: int)
