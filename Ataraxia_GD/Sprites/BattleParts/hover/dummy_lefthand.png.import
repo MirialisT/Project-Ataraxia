@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://et664k7ym078"
-path="res://.godot/imported/dummy_lefthand.png-a4fea917d2b1287ff0541fb020b647df.ctex"
+path="res://.godot/imported/dummy_lefthand.png-e5d1b3b0374db840d17c87fc6057ab94.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Sprites/BattleParts/Hover/dummy_lefthand.png"
-dest_files=["res://.godot/imported/dummy_lefthand.png-a4fea917d2b1287ff0541fb020b647df.ctex"]
+source_file="res://Sprites/BattleParts/hover/dummy_lefthand.png"
+dest_files=["res://.godot/imported/dummy_lefthand.png-e5d1b3b0374db840d17c87fc6057ab94.ctex"]
 
 [params]
 
