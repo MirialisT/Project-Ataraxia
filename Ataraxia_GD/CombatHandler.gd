@@ -1,5 +1,5 @@
 extends Control
-@export var enemy_object: Entity
+@export var enemy_object: NPC
 @export var player_object: Player
 func _ready() -> void:
 	pass

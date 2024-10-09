@@ -1,5 +1,4 @@
-extends Area2D
-class_name Entity
+extends NPC
 
 @export var npc_name = "changeme"
 @export_enum("Human", "Elf") var race_name: String
@@ -8,6 +7,7 @@ class_name Entity
 @onready var race = $PropertyController/RaceController.get_race(race_name, npc_name)
 @onready var stats_handler = $PropertyController/StatsController.StatsHandler.new()
 @onready var body = $PropertyController/BodyController.Body.new()
+
 var pronouns: Dictionary = {
 	"third_face": "3rd_placeholder",
 	"possesive": "poss_placeholder"
@@ -18,7 +18,7 @@ var pronouns: Dictionary = {
 	#"move_up": Vector2.UP,
 	#"move_down": Vector2.DOWN
 	#}
-			
+		
 func get_hit(bodypart_name: String, damage_amount: int, bleed_severity: int):
 	print("%s got hit by player in %s by %d with bleed severity %d" % [npc_name, bodypart_name, damage_amount, bleed_severity])
 	body.bodypart_get_hit(bodypart_name, damage_amount, bleed_severity)
@@ -89,3 +89,4 @@ func sprite_handler():
 
 func _on_time_process(time_amount: int):
 	print("%s processing time %d" % [npc_name, time_amount])
+	update_hbar()

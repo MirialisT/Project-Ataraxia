@@ -30,7 +30,7 @@ class BodyPart:
 		print("BodyPart:%s:%d:%s:%s:%d" % [bp_name, bp_health_current, is_intact, is_not_broken, wound_severity])
 	
 class Body:
-	# TODO: handle bleeding, handle on hit for now
+	# TODO: split for humonoid and non-humonoid, or make universal
 	var sex: String
 	var max_health: int
 	var current_health: int = 1
@@ -57,7 +57,7 @@ class Body:
 			total_blood -= part.wound_severity * 10
 			print("Bleeding from %s, remaining %d" % [part.bp_name, total_blood])
 			if total_blood <= 0:
-				TimeProcesser.bleed_on_time.disconnect(self.bleed)
+				close_bleed()
 				kill()
 		
 	func get_bodypart(bodypart_name: String):
@@ -71,12 +71,15 @@ class Body:
 		return bleeding_parts
 	
 	func kill():
-		if TimeProcesser.bleed_on_time.is_connected(bleed): TimeProcesser.bleed_on_time.disconnect(self.bleed)
+		close_bleed()
 		current_health = 0
 		is_alive = false
 		is_consious = false
 		return
 		
+	func close_bleed():
+		if TimeProcesser.bleed_on_time.is_connected(bleed): TimeProcesser.bleed_on_time.disconnect(self.bleed)
+	
 	func stun():
 		current_health = 1
 		is_consious = false
