@@ -21,7 +21,7 @@ class BodyPart:
 			bp_health_current = 0
 			if wound_severity:
 				is_intact = false
-				wound_severity = 4
+				wound_severity = 10
 				print("Bodypart %s is cut off, bleeding with %d severity." % [bp_name, wound_severity])
 			else:
 				is_not_broken = false
@@ -30,7 +30,7 @@ class BodyPart:
 		print("BodyPart:%s:%d:%s:%s:%d" % [bp_name, bp_health_current, is_intact, is_not_broken, wound_severity])
 	
 class Body:
-	# For later: mix health system with hemorrhage
+	# TODO: split for humonoid and non-humonoid, or make universal
 	var sex: String
 	var max_health: int
 	var current_health: int = 1
@@ -38,7 +38,7 @@ class Body:
 	var is_alive: bool = true
 	var is_consious: bool = true
 	var bodyparts_container = {
-	# handle eyes, parts that are not intact affect stats + parser description
+	# TODO: handle eyes, parts that are not intact affect stats + parser description
 		"head": BodyPart.new("head", true),
 		"torso": BodyPart.new("torso", true),
 		"lefthand": BodyPart.new("lefthand"),
@@ -47,18 +47,39 @@ class Body:
 		"rightleg": BodyPart.new("rightleg")
 	}
 	func _init() -> void:
+		TimeProcesser.bleed_on_time.connect(bleed)
 		update_max_health()
 		update_current_health()
+	# check bleeding, fix numbers&stuff
+	func bleed():
+		var bleeding_parts = get_bleeding_bodyparts()
+		for part in bleeding_parts:
+			total_blood -= part.wound_severity * 10
+			print("Bleeding from %s, remaining %d" % [part.bp_name, total_blood])
+			if total_blood <= 0:
+				close_bleed()
+				kill()
 		
 	func get_bodypart(bodypart_name: String):
 		return bodyparts_container[bodypart_name]
-		
+	
+	func get_bleeding_bodyparts():
+		var bleeding_parts: Array[BodyPart]
+		for part in bodyparts_container.values():
+			if part.wound_severity > 0:
+				bleeding_parts.append(part)
+		return bleeding_parts
+	
 	func kill():
+		close_bleed()
 		current_health = 0
 		is_alive = false
 		is_consious = false
 		return
 		
+	func close_bleed():
+		if TimeProcesser.bleed_on_time.is_connected(bleed): TimeProcesser.bleed_on_time.disconnect(self.bleed)
+	
 	func stun():
 		current_health = 1
 		is_consious = false
@@ -86,7 +107,7 @@ class Body:
 	func get_current_health():
 		return current_health
 		
-	# rewrite logic, get stunned on low health
+	# TODO: rewrite logic, get stunned on low health
 	func bodypart_get_hit(bodypart_name, damage_amount: int, bleed_severity: int = 0):
 		var target_bp = bodyparts_container[bodypart_name]
 		if target_bp.is_intact and target_bp.is_not_broken:

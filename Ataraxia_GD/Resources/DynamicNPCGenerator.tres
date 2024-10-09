@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="DynamicNPCGen" load_steps=2 format=3 uid="uid://dsmokstevxkxo"]
+
+[ext_resource type="Script" path="res://Scripts/ResourceScripts/DynamicNPCGenerator.gd" id="1_3jvke"]
+
+[resource]
+script = ExtResource("1_3jvke")
+race_library = {
+0: {
+"Female": ["Lesly", "Shana", "Sera", "Amily"],
+"Male": ["Alex", "Arni", "Alfred", "Balos"],
+"race_name": "Human"
+},
+1: {
+"Female": ["Lesaliel", "Sha'na", "Serali", "Amilai"],
+"Male": ["Aleriel", "Arinal", "Alferos", "Baloriel"],
+"race_name": "Elf"
+}
+}
+sex_library = ["Male", "Female"]

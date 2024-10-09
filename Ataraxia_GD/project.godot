@@ -18,6 +18,10 @@ run/main_scene="res://Scenes/node_2d.tscn"
 config/features=PackedStringArray("4.3", "GL Compatibility")
 config/icon="res://Sprites/icon.svg"
 
+[autoload]
+
+TimeProcesser="*res://Scripts/time_processer.gd"
+
 [display]
 
 window/size/viewport_height=640

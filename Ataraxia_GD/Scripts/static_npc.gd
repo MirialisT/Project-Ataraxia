@@ -1,5 +1,4 @@
-extends Area2D
-class_name Entity
+extends NPC
 
 @export var npc_name = "changeme"
 @export_enum("Human", "Elf") var race_name: String
@@ -8,6 +7,7 @@ class_name Entity
 @onready var race = $PropertyController/RaceController.get_race(race_name, npc_name)
 @onready var stats_handler = $PropertyController/StatsController.StatsHandler.new()
 @onready var body = $PropertyController/BodyController.Body.new()
+
 var pronouns: Dictionary = {
 	"third_face": "3rd_placeholder",
 	"possesive": "poss_placeholder"
@@ -18,7 +18,7 @@ var pronouns: Dictionary = {
 	#"move_up": Vector2.UP,
 	#"move_down": Vector2.DOWN
 	#}
-			
+		
 func get_hit(bodypart_name: String, damage_amount: int, bleed_severity: int):
 	print("%s got hit by player in %s by %d with bleed severity %d" % [npc_name, bodypart_name, damage_amount, bleed_severity])
 	body.bodypart_get_hit(bodypart_name, damage_amount, bleed_severity)
@@ -26,7 +26,7 @@ func get_hit(bodypart_name: String, damage_amount: int, bleed_severity: int):
 	else: update_hbar()
 
 func _mouse_enter() -> void:
-	# maybe change to RichText + statuses?
+	# TODO: maybe change to RichText + statuses?
 	$PanelContainer/Label.text = "%s %s %s\n%d/%d\n" % [npc_name, sex, race_name, body.get_current_health(), body.get_max_health()]
 	$PanelContainer/Label.text += "Alive: %s, consious: %s" % [body.is_alive, body.is_consious]
 	$PanelContainer/Label.visible = true
@@ -37,9 +37,9 @@ func _mouse_exit() -> void:
 	$PanelContainer.visible = false
 	
 func _ready():
+	TimeProcesser.process_time.connect(_on_time_process)
 	sprite_handler()
-	position = position.snapped(Vector2.ONE * tile_size)
-	position += Vector2.ONE * tile_size/2
+	fix_position()
 	stats_handler.modify_stats(race.get_race_buffs())
 	$hbar.max_value = body.get_max_health()
 	print("%s %s, level %d, spare points %d" % [race.race_name, npc_name, stats_handler.level, stats_handler.spare_points])
@@ -59,7 +59,13 @@ func ping():
 	if body.is_consious: return "Pong"
 	else: return "silence"
 
+func fix_position():
+	position = position.snapped(Vector2.ONE * tile_size)
+	position += Vector2.ONE * tile_size/2
+
 func sprite_handler():
+	# TODO: art-related
+	# draw better sprites x(
 	var sprite_name: String = race_name + sex
 	$Sprite2D.texture = load("res://Sprites/NPC/%s/%s.png" % [race_name, sprite_name])
 	if sex == "Male":
@@ -80,8 +86,7 @@ func sprite_handler():
 	#$RayCast2D.target_position = Vector2(raycast_x, raycast_y)
 	#$RayCast2D.force_raycast_update()
 	#return !$RayCast2D.is_colliding()
-		
-#func move(dir):
-	#stats_handler.get_info()
-	#if collision_handler(dir):
-		#position += inputs[dir] * tile_size
+
+func _on_time_process(time_amount: int):
+	print("%s processing time %d" % [npc_name, time_amount])
+	update_hbar()

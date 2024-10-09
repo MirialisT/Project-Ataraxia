@@ -5,7 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://ctl3g3u6sp7cc" path="res://Sprites/Player.png" id="3_3s3h3"]
 [ext_resource type="PackedScene" uid="uid://cnb07n7st34av" path="res://Scenes/PropertyController.tscn" id="4_wj8c6"]
 [ext_resource type="PackedScene" uid="uid://dvnmegrwx1sd8" path="res://Scenes/Combat.tscn" id="5_ojr7h"]
-[ext_resource type="PackedScene" uid="uid://bbtf3jmfwjbx7" path="res://Scenes/DynamicNPC.tscn" id="7_ay6mu"]
+[ext_resource type="PackedScene" uid="uid://bbtf3jmfwjbx7" path="res://Scenes/GenericNPC.tscn" id="7_ay6mu"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_wo5ah"]
 texture = ExtResource("1_mesie")
@@ -97,9 +97,18 @@ offset_bottom = -71.0
 
 [node name="Alex" parent="." instance=ExtResource("7_ay6mu")]
 position = Vector2(528, 208)
+npc_name = "Alex"
+race_name = "Elf"
+sex = "Male"
 
 [node name="Sera" parent="." instance=ExtResource("7_ay6mu")]
 position = Vector2(113, 242)
+npc_name = "Sera"
+race_name = "Human"
+sex = "Female"
 
 [node name="Mila" parent="." instance=ExtResource("7_ay6mu")]
 position = Vector2(880, 208)
+npc_name = "Mila"
+race_name = "Human"
+sex = "Female"

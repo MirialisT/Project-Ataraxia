@@ -2,15 +2,18 @@ extends Area2D
 class_name Player
 
 @export var tile_size = 32
+# TODO: graphic-related
+# maybe go for upscaling? 32->64 | leave it 32 for now
 @onready var race = $PropertyController/RaceController.Human.new()
 @onready var body = $PropertyController/BodyController.Body.new()
 @onready var stats_handler = $PropertyController/StatsController.StatsHandler.new()
+# TODO: systems:
+# Inventory (for both PC and NPC)
+# UPD1: Items (only basic): do it via Resources, check link on side for info
+# 	Armor upd: handle with Resource class, damage process is still to come up with
+# Weapons with different damage type (blunt, cut and pierce for now)
+#	-||- with armor and items, Resource -> class name handling?
 var in_combat: bool = false
-# signal time_process(time_amount: int)
-# maybe try singleton time processer?
-# change time on user input (move, action)
-# ALT1: _unhandled_input progresses time for NPCs&World?
-# ALT2: _unhandled_input CALLS time to process things
 var inputs = {
 	"move_right": Vector2.RIGHT,
 	"move_left": Vector2.LEFT,
@@ -18,10 +21,9 @@ var inputs = {
 	"move_down": Vector2.DOWN
 	}
 			
-# Called when the node enters the scene tree for the first time.
+
 func _ready():
-	position = position.snapped(Vector2.ONE * tile_size)
-	position += Vector2.ONE * tile_size/2
+	fix_position()
 	stats_handler.modify_stats(race.get_race_buffs())
 	print("%s player, level %d, spare points %d" % [race.race_name, stats_handler.level, stats_handler.spare_points])
 	print("Current race buffs: ", race.get_race_buffs())
@@ -31,22 +33,32 @@ func _ready():
 
 func _unhandled_input(event):
 	# this catches mouse too, need to handle
+	# ignores mouse -> ignores mouse+keyboard
 	# time_process.emit(5)
+	# print("In-combat:%s" % in_combat, event)
 	if !in_combat:
 		var target = $RayCast2D.get_collider()
-		if target is Entity: $UI.visible = true
+		if target is NPC: $UI.visible = true
 		else: $UI.visible = false
 		if event.is_action_pressed("DEBUG_TRIGGER_COMBAT"):
-			if target != null and target is Entity and target.body.is_alive: initiate_combat(target)
+			if target != null and target is NPC and target.body.is_alive: initiate_combat(target)
 		if event.is_action_pressed("Interact"):
-			if target != null and target is Entity: initiate_interaction(target)
+			if target != null and target is NPC: initiate_interaction(target)
+	# switch from "for - in", to match maybe? | Works for now
 	for dir in inputs.keys():
-		if event.is_action_pressed(dir):
-			if in_combat: stop_combat()
-			move(dir)
+		# Do not touch for now, solved key ghosting after fight
+		if in_combat:
+			if event.is_action(dir):
+				# print("Got movement from is_action: %s" % dir)
+				stop_combat()
+				move(dir)
+		else:
+			if event.is_action_pressed(dir):
+				# print("Got movement %s" % dir)
+				move(dir)
 			
-func initiate_combat(target: Entity):
-	# change combat to completely separate scene, or make whole overlay
+func initiate_combat(target: NPC):
+	# TODO: change combat to completely separate scene, or make whole overlay
 	$Combat.enemy_object = target
 	$Combat.player_object = self
 	in_combat = true
@@ -58,7 +70,7 @@ func stop_combat():
 	$Combat.set_visible(false)
 	in_combat = false
 
-func initiate_interaction(target: Entity):
+func initiate_interaction(target: NPC):
 	var target_3d: String = target.pronouns["third_face"]
 	var target_ps: String = target.pronouns["possesive"]
 	print("It can be alive, either NPC or beast")
@@ -81,4 +93,8 @@ func collision_handler(direction):
 		
 func move(dir):
 	if collision_handler(dir):
+		TimeProcesser.DEBUG_LOG(5)
 		position += inputs[dir] * tile_size
+func fix_position():
+	position = position.snapped(Vector2.ONE * tile_size)
+	position += Vector2.ONE * tile_size/2
