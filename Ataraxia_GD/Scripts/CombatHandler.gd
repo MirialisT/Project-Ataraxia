@@ -7,6 +7,7 @@ func _ready() -> void:
 
 func _on_enemy_part_got_hit(bodypart_name: String, damage_amount: int, bleed_severity: int) -> void:
 	enemy_object.get_hit(bodypart_name, damage_amount, bleed_severity)
+	TimeProcesser.DEBUG_LOG(1)
 	# TODO: change battle logic
 	# options with enemy_object.body.bodypart_get_hit?
 	# check for handle_death() and other logic

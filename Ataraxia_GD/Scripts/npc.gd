@@ -37,9 +37,9 @@ func _mouse_exit() -> void:
 	$PanelContainer.visible = false
 	
 func _ready():
+	TimeProcesser.process_time.connect(_on_time_process)
 	sprite_handler()
-	position = position.snapped(Vector2.ONE * tile_size)
-	position += Vector2.ONE * tile_size/2
+	fix_position()
 	stats_handler.modify_stats(race.get_race_buffs())
 	$hbar.max_value = body.get_max_health()
 	print("%s %s, level %d, spare points %d" % [race.race_name, npc_name, stats_handler.level, stats_handler.spare_points])
@@ -58,6 +58,10 @@ func update_hbar():
 func ping():
 	if body.is_consious: return "Pong"
 	else: return "silence"
+
+func fix_position():
+	position = position.snapped(Vector2.ONE * tile_size)
+	position += Vector2.ONE * tile_size/2
 
 func sprite_handler():
 	# TODO: art-related
@@ -82,4 +86,6 @@ func sprite_handler():
 	#$RayCast2D.target_position = Vector2(raycast_x, raycast_y)
 	#$RayCast2D.force_raycast_update()
 	#return !$RayCast2D.is_colliding()
-	
+
+func _on_time_process(time_amount: int):
+	print("%s processing time %d" % [npc_name, time_amount])

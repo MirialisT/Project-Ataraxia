@@ -15,10 +15,7 @@ class_name Player
 #	-||- with armor and items, Resource -> class name handling?
 var in_combat: bool = false
 # TODO: time-related
-# signal time_process(time_amount: int)
-# maybe try singleton time processer?
-# change time on user input (move, action)
-# ALT1: _unhandled_input progresses time for NPCs&World?
+# call singleton time processer for loaded region, others are calculated in background for static npcs
 # ALT2: _unhandled_input CALLS time to process things
 var inputs = {
 	"move_right": Vector2.RIGHT,
@@ -29,8 +26,7 @@ var inputs = {
 			
 
 func _ready():
-	position = position.snapped(Vector2.ONE * tile_size)
-	position += Vector2.ONE * tile_size/2
+	fix_position()
 	stats_handler.modify_stats(race.get_race_buffs())
 	print("%s player, level %d, spare points %d" % [race.race_name, stats_handler.level, stats_handler.spare_points])
 	print("Current race buffs: ", race.get_race_buffs())
@@ -100,4 +96,8 @@ func collision_handler(direction):
 		
 func move(dir):
 	if collision_handler(dir):
+		TimeProcesser.DEBUG_LOG(5)
 		position += inputs[dir] * tile_size
+func fix_position():
+	position = position.snapped(Vector2.ONE * tile_size)
+	position += Vector2.ONE * tile_size/2

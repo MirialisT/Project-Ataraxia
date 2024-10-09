@@ -21,7 +21,7 @@ class BodyPart:
 			bp_health_current = 0
 			if wound_severity:
 				is_intact = false
-				wound_severity = 4
+				wound_severity = 10
 				print("Bodypart %s is cut off, bleeding with %d severity." % [bp_name, wound_severity])
 			else:
 				is_not_broken = false
@@ -47,13 +47,31 @@ class Body:
 		"rightleg": BodyPart.new("rightleg")
 	}
 	func _init() -> void:
+		TimeProcesser.bleed_on_time.connect(bleed)
 		update_max_health()
 		update_current_health()
+	# check bleeding, fix numbers&stuff
+	func bleed():
+		var bleeding_parts = get_bleeding_bodyparts()
+		for part in bleeding_parts:
+			total_blood -= part.wound_severity * 10
+			print("Bleeding from %s, remaining %d" % [part.bp_name, total_blood])
+			if total_blood <= 0:
+				TimeProcesser.bleed_on_time.disconnect(self.bleed)
+				kill()
 		
 	func get_bodypart(bodypart_name: String):
 		return bodyparts_container[bodypart_name]
-		
+	
+	func get_bleeding_bodyparts():
+		var bleeding_parts: Array[BodyPart]
+		for part in bodyparts_container.values():
+			if part.wound_severity > 0:
+				bleeding_parts.append(part)
+		return bleeding_parts
+	
 	func kill():
+		if TimeProcesser.bleed_on_time.is_connected(bleed): TimeProcesser.bleed_on_time.disconnect(self.bleed)
 		current_health = 0
 		is_alive = false
 		is_consious = false

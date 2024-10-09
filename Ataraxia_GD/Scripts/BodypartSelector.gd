@@ -12,4 +12,4 @@ func _ready() -> void:
 func _pressed() -> void:
 	print("Call %s | damage comes from here now" % _pressed)
 	# range for bleeding, damage amount on UI
-	enemy_part_got_hit.emit(bodypart_name, 5, 0)
+	enemy_part_got_hit.emit(bodypart_name, 5, 1)
