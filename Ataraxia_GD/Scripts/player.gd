@@ -14,9 +14,6 @@ class_name Player
 # Weapons with different damage type (blunt, cut and pierce for now)
 #	-||- with armor and items, Resource -> class name handling?
 var in_combat: bool = false
-# TODO: time-related
-# call singleton time processer for loaded region, others are calculated in background for static npcs
-# ALT2: _unhandled_input CALLS time to process things
 var inputs = {
 	"move_right": Vector2.RIGHT,
 	"move_left": Vector2.LEFT,

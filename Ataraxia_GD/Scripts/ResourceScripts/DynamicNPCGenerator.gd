@@ -1,6 +1,6 @@
 extends Resource
 class_name DynamicNPCGen
-
+# TODO: EXPAND
 @export var race_library: Dictionary = {
 		0: {
 			"race_name": "Human",

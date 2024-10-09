@@ -11,7 +11,7 @@ class BasicRace:
 	}
 	var race_name = "basic_race"
 	func get_race_buffs(): return stat_buffs
-
+# Make universal class to support both static and dynamic npc creation only with passed data
 class Human extends BasicRace:
 	func _init():
 		race_name = "Human"

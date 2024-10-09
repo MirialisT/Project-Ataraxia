@@ -1,5 +1,9 @@
 extends NPC
-
+# TODO: Big things, FOCUS ON NPC first
+# DNPC generator for region\town root, consider race habitat and amount + paths
+# Save dynamic NPC to dynamic-to-static npc dictionary and save as scene state
+# accumulate time from last time scene visited and calculate progress on diff
+# Event and Quest systems for both DNPC and SNPC
 var npc_name: String
 var sex: String
 var race_name: String
