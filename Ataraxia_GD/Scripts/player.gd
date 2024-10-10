@@ -95,6 +95,7 @@ func move(dir):
 	if collision_handler(dir):
 		TimeProcesser.DEBUG_LOG(5)
 		position += inputs[dir] * tile_size
+		
 func fix_position():
 	position = position.snapped(Vector2.ONE * tile_size)
 	position += Vector2.ONE * tile_size/2

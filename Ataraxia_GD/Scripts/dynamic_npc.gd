@@ -15,10 +15,8 @@ var race_name: String
 @onready var body = $PropertyController/BodyController.Body.new()
 var NPCGenerator = load("res://Resources/DynamicNPCGenerator.tres")
 
-func _init(generator_race: int = -1) -> void:
-	print("_init called, selected race: %d" % generator_race)
-	
-	if generator_race == -1: print("This NPC was created manually, as scene")
+func _init() -> void: print("DNPC is initiated")
+#func DEBUG() -> void: print("NPC %s is spawned via NPCSpawner" % npc_name)
 #var inputs = {
 	#"move_right": Vector2.RIGHT,
 	#"move_left": Vector2.LEFT,
@@ -70,8 +68,10 @@ func _ready():
 	print("\n")
 
 func handle_death():
+	print("%s has died, starting to rot" % npc_name)
 	$hbar.queue_free()
 	$bloodbar.queue_free()
+	
 
 func update_hbar():
 	$hbar.value = body.get_current_health()
@@ -80,11 +80,7 @@ func update_hbar():
 func ping():
 	if body.is_consious: return "Pong"
 	else: return "silence"
-
-func fix_position():
-	position = position.snapped(Vector2.ONE * tile_size)
-	position += Vector2.ONE * tile_size/2
-
+	
 func sprite_handler():
 	# TODO: art-related
 	# move to separate module
@@ -118,3 +114,11 @@ func _on_time_process(time_amount: int):
 		if not state_corpse:
 			state_corpse = true
 			handle_death()
+	if state_corpse: rot()
+
+func rot():
+	corpse_decaying_timer += 5
+	print("%s rotting, %d / %d" % [npc_name, corpse_decaying_timer, corpse_decay_time])
+	if corpse_decaying_timer >= corpse_decay_time:
+		print("%s finished rotting, clearing" % npc_name)
+		queue_free()
