@@ -21,10 +21,10 @@ var inputs = {
 	"move_down": Vector2.DOWN
 	}
 			
-
 func _ready():
 	fix_position()
 	stats_handler.modify_stats(race.get_race_buffs())
+	body.apply_buffs_and_reset(stats_handler.get_stat_int("CON"))
 	print("%s player, level %d, spare points %d" % [race.race_name, stats_handler.level, stats_handler.spare_points])
 	print("Current race buffs: ", race.get_race_buffs())
 	print("Current stats: ", stats_handler.get_stats_dict())

@@ -95,11 +95,11 @@ offset_top = -71.0
 offset_right = 6.0
 offset_bottom = -71.0
 
-[node name="Alex" parent="." instance=ExtResource("7_ay6mu")]
+[node name="DNPC_1" parent="." instance=ExtResource("7_ay6mu")]
 position = Vector2(528, 208)
 
-[node name="Sera" parent="." instance=ExtResource("7_ay6mu")]
+[node name="DNPC_2" parent="." instance=ExtResource("7_ay6mu")]
 position = Vector2(113, 242)
 
-[node name="Mila" parent="." instance=ExtResource("7_ay6mu")]
+[node name="DNPC_3" parent="." instance=ExtResource("7_ay6mu")]
 position = Vector2(880, 208)
