@@ -20,7 +20,8 @@ config/icon="res://Sprites/icon.svg"
 
 [autoload]
 
-TimeProcesser="*res://Scripts/time_processer.gd"
+TimeProcesser="*res://Scripts/GlobalScripts/time_processer.gd"
+DnD="*res://Scripts/GlobalScripts/DnD.gd"
 
 [display]
 

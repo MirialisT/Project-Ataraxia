@@ -1,6 +1,7 @@
 extends Node
 
 class BodyPart:
+	const base_bp_health: int = 50
 	var is_intact: bool = true
 	var is_not_broken: bool = true
 	var is_vital: bool = false
@@ -9,11 +10,18 @@ class BodyPart:
 	var bp_health_current: int = 50
 	var bp_health_max: int = 50
 	var armor_amount: int = 0
+	
 
 	func _init(bodypart_name: String, vitality:bool = false):
 		bp_name = bodypart_name
 		is_vital = vitality
 		log_stat()
+		
+	func con_buff(constitution):
+		bp_health_max = base_bp_health + 10 * (constitution / 2)
+	
+	func restore(): bp_health_current = bp_health_max
+		
 	func take_damage(damage: int, bleed_severity):
 		bp_health_current -= (damage - armor_amount)
 		if bleed_severity: wound_severity = bleed_severity
@@ -37,6 +45,7 @@ class Body:
 	var total_blood: int = 5000
 	var is_alive: bool = true
 	var is_consious: bool = true
+	
 	var bodyparts_container = {
 	# TODO: handle eyes, parts that are not intact affect stats + parser description
 		"head": BodyPart.new("head", true),
@@ -46,10 +55,9 @@ class Body:
 		"leftleg": BodyPart.new("leftleg"),
 		"rightleg": BodyPart.new("rightleg")
 	}
+		
 	func _init() -> void:
 		TimeProcesser.bleed_on_time.connect(bleed)
-		update_max_health()
-		update_current_health()
 	# check bleeding, fix numbers&stuff
 	func bleed():
 		var bleeding_parts = get_bleeding_bodyparts()
@@ -59,7 +67,14 @@ class Body:
 			if total_blood <= 0:
 				close_bleed()
 				kill()
-		
+	
+	func apply_buffs_and_reset(constitution: int):
+		for part in bodyparts_container.values():
+			part.con_buff(constitution)
+			part.restore()
+		update_max_health()
+		update_current_health()
+			
 	func get_bodypart(bodypart_name: String):
 		return bodyparts_container[bodypart_name]
 	

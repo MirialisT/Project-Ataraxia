@@ -8,10 +8,6 @@ extends NPC
 @onready var stats_handler = $PropertyController/StatsController.StatsHandler.new()
 @onready var body = $PropertyController/BodyController.Body.new()
 
-var pronouns: Dictionary = {
-	"third_face": "3rd_placeholder",
-	"possesive": "poss_placeholder"
-}
 #var inputs = {
 	#"move_right": Vector2.RIGHT,
 	#"move_left": Vector2.LEFT,

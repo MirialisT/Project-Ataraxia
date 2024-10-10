@@ -1,5 +1,7 @@
 extends NPC
 # TODO: Big things, FOCUS ON NPC first
+# JobDriver class \ resource, occupations
+# Skills for both player and NPCs
 # DNPC generator for region\town root, consider race habitat and amount + paths
 # Save dynamic NPC to dynamic-to-static npc dictionary and save as scene state
 # accumulate time from last time scene visited and calculate progress on diff
@@ -7,16 +9,14 @@ extends NPC
 var npc_name: String
 var sex: String
 var race_name: String
-var state_corpse: bool = false
 @export var tile_size = 32
 @onready var race
 @onready var stats_handler = $PropertyController/StatsController.StatsHandler.new()
 @onready var body = $PropertyController/BodyController.Body.new()
-@onready var NPCGenerator = load("res://Resources/DynamicNPCGenerator.tres")
-var pronouns: Dictionary = {
-	"third_face": "3rd_placeholder",
-	"possesive": "poss_placeholder"
-}
+var NPCGenerator = load("res://Resources/DynamicNPCGenerator.tres")
+
+func _init() -> void: print("DNPC is initiated")
+#func DEBUG() -> void: print("NPC %s is spawned via NPCSpawner" % npc_name)
 #var inputs = {
 	#"move_right": Vector2.RIGHT,
 	#"move_left": Vector2.LEFT,
@@ -43,6 +43,7 @@ func _mouse_exit() -> void:
 	$PanelContainer.visible = false
 	
 func _ready():
+	print("_ready called, race_name is already set")
 	var generated_npc: Array = NPCGenerator.generate_npc()
 	var generated_race = generated_npc[0]
 	var generated_sex = generated_npc[1]
@@ -55,6 +56,7 @@ func _ready():
 	sprite_handler()
 	fix_position()
 	stats_handler.modify_stats(race.get_race_buffs())
+	body.apply_buffs_and_reset(stats_handler.get_stat_int("CON"))
 	$hbar.max_value = body.get_max_health()
 	$bloodbar.max_value = body.total_blood
 	$bloodbar.add_theme_color_override("font_outline_color", Color(1, 0, 0))
@@ -66,23 +68,22 @@ func _ready():
 	print("\n")
 
 func handle_death():
+	print("%s has died, starting to rot" % npc_name)
 	$hbar.queue_free()
 	$bloodbar.queue_free()
+	
 
 func update_hbar():
 	$hbar.value = body.get_current_health()
 	$bloodbar.value = body.total_blood
-
+	
 func ping():
 	if body.is_consious: return "Pong"
 	else: return "silence"
-
-func fix_position():
-	position = position.snapped(Vector2.ONE * tile_size)
-	position += Vector2.ONE * tile_size/2
-
+	
 func sprite_handler():
 	# TODO: art-related
+	# move to separate module
 	# draw better sprites x(
 	var sprite_name: String = race_name + sex
 	$Sprite2D.texture = load("res://Sprites/NPC/%s/%s.png" % [race_name, sprite_name])
@@ -113,3 +114,11 @@ func _on_time_process(time_amount: int):
 		if not state_corpse:
 			state_corpse = true
 			handle_death()
+	if state_corpse: rot()
+
+func rot():
+	corpse_decaying_timer += 5
+	print("%s rotting, %d / %d" % [npc_name, corpse_decaying_timer, corpse_decay_time])
+	if corpse_decaying_timer >= corpse_decay_time:
+		print("%s finished rotting, clearing" % npc_name)
+		queue_free()
