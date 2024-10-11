@@ -14,6 +14,7 @@ var race_name: String
 @onready var stats_handler = $PropertyController/StatsController.StatsHandler.new()
 @onready var body = $PropertyController/BodyController.Body.new()
 var NPCGenerator = load("res://Resources/DynamicNPCGenerator.tres")
+signal NPC_DEATH(NPC_UID: int)
 
 func _init() -> void: print("DNPC is initiated")
 #func DEBUG() -> void: print("NPC %s is spawned via NPCSpawner" % npc_name)
@@ -44,6 +45,7 @@ func _mouse_exit() -> void:
 	
 func _ready():
 	print("_ready called, race_name is already set")
+	name = str(get_rid().get_id())
 	var generated_npc: Array = NPCGenerator.generate_npc()
 	var generated_race = generated_npc[0]
 	var generated_sex = generated_npc[1]
@@ -121,4 +123,5 @@ func rot():
 	print("%s rotting, %d / %d" % [npc_name, corpse_decaying_timer, corpse_decay_time])
 	if corpse_decaying_timer >= corpse_decay_time:
 		print("%s finished rotting, clearing" % npc_name)
+		NPC_DEATH.emit(get_rid().get_id())
 		queue_free()
