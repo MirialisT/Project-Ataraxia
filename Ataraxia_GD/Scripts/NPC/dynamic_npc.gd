@@ -45,14 +45,6 @@ func _mouse_exit() -> void:
 	
 func _ready():
 	print("_ready called, race_name is already set")
-	name = str(get_rid().get_id())
-	var generated_npc: Array = NPCGenerator.generate_npc()
-	var generated_race = generated_npc[0]
-	var generated_sex = generated_npc[1]
-	var generated_name = generated_npc[2]
-	sex = generated_sex
-	race_name = generated_race
-	npc_name = generated_name
 	race = $PropertyController/RaceController.get_race(race_name, npc_name)
 	TimeProcesser.process_time.connect(_on_time_process)
 	sprite_handler()

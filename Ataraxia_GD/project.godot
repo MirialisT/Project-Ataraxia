@@ -14,7 +14,7 @@ config/name="Ataraxia"
 config/description="Open-world survival RPG with indepth health/combat/e.t.c systems.
 07/10/24: It's gonna be a long ride."
 config/version="0.0.1"
-run/main_scene="res://Scenes/node_2d.tscn"
+run/main_scene="res://Scenes/world_map.tscn"
 config/features=PackedStringArray("4.3", "GL Compatibility")
 config/icon="res://Sprites/icon.svg"
 

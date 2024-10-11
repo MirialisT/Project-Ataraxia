@@ -3,22 +3,28 @@ class_name NPCSpawner
 
 # PROPERTIES SECTION
 ## Dictionary for handling NPCs, saving for later
-var NPC_CONTAINER: Dictionary
+var NPCGenerator = load("res://Resources/DynamicNPCGenerator.tres")
 
 # FUNCTIONS SECTION
 func spawnNPCs(spawnpoints: Array[Vector2i]):
+	var DNPC_CONTAINER: Dictionary
+	var DNPC: NPC
+	var DNPC_UID: int
+	var spawnedNPC: NPC
 	for spawnpoint in spawnpoints:
-		spawn_npc_at_pos(spawnpoint)
-		
-func remove_npc_from_list(NPC_UID: int):
-	print("CALL::%s::%d" % [remove_npc_from_list, NPC_UID])
-	if NPC_CONTAINER.erase(NPC_UID): print("%d erased successfully" % NPC_UID)
-	else: print("Cannot erase %d, non-existent" % NPC_UID)
-	
-func spawn_npc_at_pos(spawnpoint: Vector2i):
-	var DNPC = preload("res://Scenes/DynamicNPC.tscn").instantiate()
-	var DNPC_UID: int = DNPC.get_rid().get_id()
+		DNPC = preload("res://Scenes/DynamicNPC.tscn").instantiate()
+		DNPC_UID = DNPC.get_rid().get_id()
+		spawnedNPC = spawn_npc_at_pos(DNPC, DNPC_UID, spawnpoint)
+		print("%s::saved NPC with %d UID" % [spawnNPCs, DNPC_UID])
+		DNPC_CONTAINER[DNPC_UID] = spawnedNPC
+	return DNPC_CONTAINER
+
+func spawn_npc_at_pos(DNPC: NPC, DNPC_UID: int, spawnpoint: Vector2i):
+	var generated_npc: Array = NPCGenerator.generate_npc()
+	DNPC.sex = generated_npc[1]
+	DNPC.race_name = generated_npc[0]
+	DNPC.npc_name = generated_npc[2]
+	DNPC.name = str(DNPC_UID)
 	DNPC.set_local_pos(spawnpoint)
-	print("Saved NPC with UID::%d" % DNPC_UID)
-	DNPC.NPC_DEATH.connect(remove_npc_from_list)
-	NPC_CONTAINER[DNPC_UID] = DNPC
+	print("Generated NPC with UID::%d" % DNPC_UID)
+	return DNPC

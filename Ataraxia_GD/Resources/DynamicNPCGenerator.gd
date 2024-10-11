@@ -34,12 +34,10 @@ func generate_npc():
 	var rand_race = race_library[randi() % race_library.size()]
 	var rand_sex: String = sex_library[randi_range(0,1)]
 	var rand_name: String
-	print(rand_race)
 	var names_amount: int = rand_race[rand_sex].size()
 	rand_name = rand_race[rand_sex][randi() % names_amount]
 	return [rand_race["race_name"], rand_sex, rand_name]
 	
-func generate_npc_monorace(race_id: int):
-	
+func generate_npc_monorace(_race_id: int):
 	#0xF = 0b1111 = first 4 races -> yes
 	pass

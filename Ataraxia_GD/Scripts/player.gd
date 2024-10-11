@@ -89,6 +89,7 @@ func collision_handler(direction):
 	var raycast_y = tile_size * inputs[direction][1]
 	$RayCast2D.target_position = Vector2(raycast_x, raycast_y)
 	$RayCast2D.force_raycast_update()
+	if $RayCast2D.get_collider() is Teleporter: $RayCast2D.get_collider().changeScenes()
 	return !$RayCast2D.is_colliding()
 		
 func move(dir):
