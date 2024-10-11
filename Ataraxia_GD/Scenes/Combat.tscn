@@ -1,9 +1,9 @@
 [gd_scene load_steps=16 format=3 uid="uid://dvnmegrwx1sd8"]
 
-[ext_resource type="Script" path="res://CombatHandler.gd" id="1_m12bi"]
+[ext_resource type="Script" path="res://Scripts/Battle/CombatHandler.gd" id="1_m12bi"]
 [ext_resource type="Texture2D" uid="uid://m5v1q4iq1ohx" path="res://Sprites/BattleParts/background.png" id="2_c6iri"]
 [ext_resource type="Texture2D" uid="uid://daby4utxmpre" path="res://Sprites/BattleParts/Basic/dummy_head.png" id="2_mv3bw"]
-[ext_resource type="Script" path="res://Scripts/BodypartSelector.gd" id="3_ha4j7"]
+[ext_resource type="Script" path="res://Scripts/Battle/BodypartSelector.gd" id="3_ha4j7"]
 [ext_resource type="Texture2D" uid="uid://ckeledldkb38a" path="res://Sprites/BattleParts/Hover/dummy_head.png" id="4_ejr58"]
 [ext_resource type="Texture2D" uid="uid://casxvmo7ycx14" path="res://Sprites/BattleParts/Basic/dummy_torso.png" id="4_lr1mg"]
 [ext_resource type="Texture2D" uid="uid://c2y7ojs5nrmq8" path="res://Sprites/BattleParts/Basic/dummy_lefthand.png" id="5_dgltb"]

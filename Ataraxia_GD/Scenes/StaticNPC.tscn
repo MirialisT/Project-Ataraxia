@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://c1jx8xxfkhjdu"]
 
-[ext_resource type="Script" path="res://Scripts/static_npc.gd" id="1_eg0qi"]
+[ext_resource type="Script" path="res://Scripts/NPC/static_npc.gd" id="1_eg0qi"]
 [ext_resource type="Texture2D" uid="uid://dpdlwou6fgyck" path="res://Sprites/icon.svg" id="2_3jl8k"]
 [ext_resource type="PackedScene" uid="uid://cnb07n7st34av" path="res://Scenes/PropertyController.tscn" id="3_67c26"]
 
