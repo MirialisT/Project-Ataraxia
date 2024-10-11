@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=4 uid="uid://y5q6m6r8khvj"]
+[gd_scene load_steps=10 format=4 uid="uid://y5q6m6r8khvj"]
 
 [ext_resource type="Script" path="res://Scripts/SceneHandler.gd" id="1_w5u4g"]
 [ext_resource type="Texture2D" uid="uid://dkc0egstyi8no" path="res://Tilesets/town-building.png" id="2_bqhwh"]
@@ -6,7 +6,6 @@
 [ext_resource type="Texture2D" uid="uid://ctl3g3u6sp7cc" path="res://Sprites/Player.png" id="4_fk1yc"]
 [ext_resource type="PackedScene" uid="uid://cnb07n7st34av" path="res://Scenes/PropertyController.tscn" id="5_ivffp"]
 [ext_resource type="PackedScene" uid="uid://dvnmegrwx1sd8" path="res://Scenes/Combat.tscn" id="6_y6kfx"]
-[ext_resource type="PackedScene" uid="uid://s0k4cji13tak" path="res://Scenes/Towns/TownTeleporter.tscn" id="7_w16jr"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_wo5ah"]
 texture = ExtResource("2_bqhwh")
@@ -97,5 +96,3 @@ offset_left = 6.0
 offset_top = -71.0
 offset_right = 6.0
 offset_bottom = -71.0
-
-[node name="ToTown2" parent="." instance=ExtResource("7_w16jr")]

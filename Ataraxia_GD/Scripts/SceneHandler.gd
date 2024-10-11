@@ -24,6 +24,7 @@ func _ready() -> void:
 
 func addNPCs():
 	for NPC_object in SCENE_NPCS.values():
+		NPC_object.NPC_DEATH.connect(removeNPC)
 		add_child(NPC_object)
 
 func removeNPC(NPC_UID: int):
