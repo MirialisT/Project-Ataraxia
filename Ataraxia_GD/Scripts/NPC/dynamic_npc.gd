@@ -2,8 +2,8 @@ extends NPC
 # TODO: Big things, FOCUS ON NPC first
 # JobDriver class \ resource, occupations
 # Skills for both player and NPCs
-# DNPC generator for region\town root, consider race habitat and amount + paths
-# Save dynamic NPC to dynamic-to-static npc dictionary and save as scene state
+# DNPC generator for region\town root (DONE), consider race habitat and amount + paths
+# Save dynamic NPC to dynamic-to-static npc dictionary (DONE) and save as scene state
 # accumulate time from last time scene visited and calculate progress on diff
 # Event and Quest systems for both DNPC and SNPC
 var npc_name: String
@@ -17,15 +17,9 @@ var NPCGenerator = load("res://Resources/DynamicNPCGenerator.tres")
 signal NPC_DEATH(NPC_UID: int)
 
 func _init() -> void: print("DNPC is initiated")
-#func DEBUG() -> void: print("NPC %s is spawned via NPCSpawner" % npc_name)
-#var inputs = {
-	#"move_right": Vector2.RIGHT,
-	#"move_left": Vector2.LEFT,
-	#"move_up": Vector2.UP,
-	#"move_down": Vector2.DOWN
-	#}
-		
+
 func get_hit(bodypart_name: String, damage_amount: int, bleed_severity: int):
+	# think about splitting into two modules -> npc body and npc behaviour
 	print("%s got hit by player in %s by %d with bleed severity %d" % [npc_name, bodypart_name, damage_amount, bleed_severity])
 	body.bodypart_get_hit(bodypart_name, damage_amount, bleed_severity)
 	if !body.is_alive: handle_death()
@@ -90,8 +84,6 @@ func sprite_handler():
 	if sex in ["BeastMale", "BeastFemale"]:
 		pronouns["third_face"] = "it"
 		pronouns["possesive"] = "it's"
-#func _process(_delta) -> void:
-	#if !stats_handler.is_alive: queue_free()
 
 #func collision_handler(direction):
 	#var raycast_x = tile_size * inputs[direction][0]

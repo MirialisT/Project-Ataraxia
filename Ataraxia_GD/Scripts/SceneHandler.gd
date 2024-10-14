@@ -11,7 +11,6 @@ var last_time_visited: int = 0
 
 func _init() -> void: print("Scene initialized")
 
-# Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	print("%s::%s" % [name, _ready])
 	if SCENE_NPCS.is_empty():

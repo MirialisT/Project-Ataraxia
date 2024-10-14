@@ -2,8 +2,6 @@ extends Area2D
 class_name Player
 
 @export var tile_size = 32
-# TODO: graphic-related
-# maybe go for upscaling? 32->64 | leave it 32 for now
 @onready var race = $PropertyController/RaceController.Human.new()
 @onready var body = $PropertyController/BodyController.Body.new()
 @onready var stats_handler = $PropertyController/StatsController.StatsHandler.new()
@@ -34,7 +32,6 @@ func _ready():
 func _unhandled_input(event):
 	# this catches mouse too, need to handle
 	# ignores mouse -> ignores mouse+keyboard
-	# time_process.emit(5)
 	# print("In-combat:%s" % in_combat, event)
 	if !in_combat:
 		var target = $RayCast2D.get_collider()
@@ -44,7 +41,6 @@ func _unhandled_input(event):
 			if target != null and target is NPC and target.body.is_alive: initiate_combat(target)
 		if event.is_action_pressed("Interact"):
 			if target != null and target is NPC: initiate_interaction(target)
-	# switch from "for - in", to match maybe? | Works for now
 	for dir in inputs.keys():
 		# Do not touch for now, solved key ghosting after fight
 		if in_combat:
