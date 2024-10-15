@@ -40,7 +40,7 @@ func _mouse_exit() -> void:
 func _ready():
 	print("_ready called, race_name is already set")
 	race = $PropertyController/RaceController.get_race(race_name, npc_name)
-	TimeProcesser.process_time.connect(_on_time_process)
+	get_parent().npc_process_time.connect(_on_time_process)
 	sprite_handler()
 	fix_position()
 	stats_handler.modify_stats(race.get_race_buffs())
@@ -92,15 +92,21 @@ func sprite_handler():
 	#$RayCast2D.force_raycast_update()
 	#return !$RayCast2D.is_colliding()
 
+# do a better version, handle big time diff for future
+# split events by small\average\big inactive time to optimize
 func _on_time_process(time_amount: int):
-	print("%s processing time %d" % [npc_name, time_amount])
-	if body.is_alive:
-		update_hbar()
-	else:
-		if not state_corpse:
-			state_corpse = true
-			handle_death()
-	if state_corpse: rot()
+	print("%s processing time %d, ticks to process: %d" % [npc_name, time_amount, int(time_amount/5.0)])
+	for tick in int(time_amount/5.0):
+		if body.is_alive:
+			# Change body logic to tick, to it triggers internal funcs like bleed, heal
+			body.bleed()
+			update_hbar()
+		else:
+			if not state_corpse:
+				state_corpse = true
+				handle_death()
+		if state_corpse:
+			if !rot(): break
 
 func rot():
 	corpse_decaying_timer += 5
@@ -109,3 +115,5 @@ func rot():
 		print("%s finished rotting, clearing" % npc_name)
 		NPC_DEATH.emit(get_rid().get_id())
 		queue_free()
+		return false
+	return true
