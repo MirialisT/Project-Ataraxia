@@ -1,7 +1,7 @@
 extends Node
 signal process_time(time_amount: int)
 signal bleed_on_time()
-@export var start_time: int
+var start_time: int
 # store time from last time visited, check DNPC script
 # write new functions, fix this shit
 func DEBUG_LOG(int_time: int):

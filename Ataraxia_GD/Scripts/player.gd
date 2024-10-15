@@ -95,3 +95,11 @@ func move(dir):
 func fix_position():
 	position = position.snapped(Vector2.ONE * tile_size)
 	position += Vector2.ONE * tile_size/2
+
+# Split positioning into global script
+func set_local_pos(local_points: Vector2i):
+	position = local_to_global_pos(local_points)
+	return self
+	
+func local_to_global_pos(local_points: Vector2i):
+	return Vector2i((local_points.x*32 + 16), (local_points.y*32 + 16))

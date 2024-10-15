@@ -1,17 +1,21 @@
 extends Node2D
-
+class_name SceneHandler
 var NPCSpawnerObject = load("res://Resources/NPCSpawner.tres")
 var SCENE_NPCS: Dictionary
-var last_time_visited: int = 0
+var inactive_time: int = 0
+var inactive: bool = true
 # @export var SCENE_NAME: String
 @export var npc_spawn_number: int = 1
 @export var Scene_name: String = "Scene_name_placeholder"
+@export var player_spawnpoint: Vector2i = Vector2i(17,7)
 ## In TileMap coordinates
 @export var spawnpoints: Array[Vector2i]
 
 func _init() -> void: print("Scene initialized")
 
 func _ready() -> void:
+	inactive = false
+	TimeProcesser.process_time.connect(process_global_time)
 	print("%s::%s" % [name, _ready])
 	if SCENE_NPCS.is_empty():
 		print("First load of scene, generating NPCs")
@@ -30,3 +34,21 @@ func removeNPC(NPC_UID: int):
 	print("CALL::%s::%d" % [removeNPC, NPC_UID])
 	if SCENE_NPCS.erase(NPC_UID): print("%d erased successfully" % NPC_UID)
 	else: print("Cannot erase %d, non-existent" % NPC_UID)
+	
+func spawn_player(player_object: Player = null):
+	if player_object == null: player_object = preload("res://Scenes/player.tscn").instantiate()
+	add_child(player_object)
+	player_object.position = player_object.local_to_global_pos(player_spawnpoint)
+	
+func process_global_time(global_time_tick: int = 0):
+	if inactive:
+		inactive_time += global_time_tick
+		print("%s: Inactive time accumulated: %d" % [name, inactive_time])
+	else:
+		if inactive_time > 0:
+			print("%s scene processing accumulated time of %d" % [name, inactive_time])
+			process_active_time(inactive_time)
+		process_active_time(global_time_tick)
+
+func process_active_time(time_to_process: int):
+	print("%s is processing time: %d" % [name, time_to_process])
