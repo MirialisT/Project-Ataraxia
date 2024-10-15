@@ -94,15 +94,17 @@ func sprite_handler():
 
 func _on_time_process(time_amount: int):
 	print("%s processing time %d, ticks to process: %d" % [npc_name, time_amount, time_amount/5])
-	if body.is_alive:
-		# Change body logic to tick, to it triggers internal funcs like bleed, heal
-		body.bleed()
-		update_hbar()
-	else:
-		if not state_corpse:
-			state_corpse = true
-			handle_death()
-	if state_corpse: rot()
+	for tick in int(time_amount)/5:
+		if body.is_alive:
+			# Change body logic to tick, to it triggers internal funcs like bleed, heal
+			body.bleed()
+			update_hbar()
+		else:
+			if not state_corpse:
+				state_corpse = true
+				handle_death()
+		if state_corpse:
+			if !rot(): break
 
 func rot():
 	corpse_decaying_timer += 5
@@ -111,3 +113,5 @@ func rot():
 		print("%s finished rotting, clearing" % npc_name)
 		NPC_DEATH.emit(get_rid().get_id())
 		queue_free()
+		return false
+	return true

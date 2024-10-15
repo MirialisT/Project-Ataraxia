@@ -52,6 +52,8 @@ func process_global_time(global_time_tick: int = 0):
 		if inactive_time > 0:
 			print("%s scene processing accumulated time of %d" % [name, inactive_time])
 			process_active_time(inactive_time)
+			inactive_time = 0
+			return
 		process_active_time(global_time_tick)
 
 func process_active_time(time_to_process: int):

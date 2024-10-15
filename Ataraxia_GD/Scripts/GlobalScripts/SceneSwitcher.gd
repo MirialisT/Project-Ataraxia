@@ -24,7 +24,12 @@ func switch_scene_to(scene_name_to: String, scene_name_from: String):
 	var player_container: Node = null
 	player_container = current_scene.unload_player()
 	root.remove_child(current_scene)
+	current_scene.inactive = true
 	inactive_scenes[scene_name_from] = current_scene
 	inactive_scenes[scene_name_to].spawn_player(player_container)
+	inactive_scenes[scene_name_to].inactive = false
 	root.add_child(inactive_scenes[scene_name_to])
+	inactive_scenes.erase(scene_name_to)
 	current_scene = root.get_child(-1)
+	print("Switched from %s to %s, triggering time processing" % [scene_name_from, scene_name_to])
+	current_scene.process_global_time()
