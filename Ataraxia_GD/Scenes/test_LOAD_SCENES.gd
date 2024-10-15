@@ -7,13 +7,5 @@ func _ready() -> void:
 
 
 func _pressed() -> void:
-	var root = get_tree().root
-	for scene in scenes_to_load:
-		var ready_scene: Node = scene.instantiate()
-		ready_scene.inactive = true
-		ready_scene.visible = false
-		root.add_child(ready_scene)
-	var starting_scene: Node = root.get_child(-1)
-	starting_scene.spawn_player()
-	starting_scene.visible = true
+	SceneSwitcher.start()
 	get_parent().visible = false

@@ -42,7 +42,7 @@ physics_layer_0/collision_layer = 1
 physics_layer_0/collision_mask = 2
 sources/6 = SubResource("TileSetAtlasSource_wo5ah")
 
-[node name="Town2_root" type="Node2D"]
+[node name="Town2" type="Node2D"]
 script = ExtResource("1_nvgew")
 spawnpoints = Array[Vector2i]([Vector2i(15, 13), Vector2i(7, 14)])
 

@@ -56,16 +56,15 @@ class Body:
 		"rightleg": BodyPart.new("rightleg")
 	}
 		
-	func _init() -> void:
-		TimeProcesser.bleed_on_time.connect(bleed)
+	func _init() -> void: pass
 	# check bleeding, fix numbers&stuff
 	func bleed():
-		var bleeding_parts = get_bleeding_bodyparts()
+		var bleeding_parts: Array = get_bleeding_bodyparts()
+		if bleeding_parts.is_empty(): return
 		for part in bleeding_parts:
 			total_blood -= part.wound_severity * 10
 			print("Bleeding from %s, remaining %d" % [part.bp_name, total_blood])
 			if total_blood <= 0:
-				close_bleed()
 				kill()
 	
 	func apply_buffs_and_reset(constitution: int):
@@ -86,14 +85,13 @@ class Body:
 		return bleeding_parts
 	
 	func kill():
-		close_bleed()
 		current_health = 0
 		is_alive = false
 		is_consious = false
 		return
 		
-	func close_bleed():
-		if TimeProcesser.bleed_on_time.is_connected(bleed): TimeProcesser.bleed_on_time.disconnect(self.bleed)
+	#func close_bleed():
+		# left this function name for later health mechanics
 	
 	func stun():
 		current_health = 1

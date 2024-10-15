@@ -10,11 +10,10 @@ var inactive: bool = true
 @export var player_spawnpoint: Vector2i = Vector2i(17,7)
 ## In TileMap coordinates
 @export var spawnpoints: Array[Vector2i]
-
+signal npc_process_time(int)
 func _init() -> void: print("Scene initialized")
 
 func _ready() -> void:
-	inactive = false
 	TimeProcesser.process_time.connect(process_global_time)
 	print("%s::%s" % [name, _ready])
 	if SCENE_NPCS.is_empty():
@@ -52,3 +51,4 @@ func process_global_time(global_time_tick: int = 0):
 
 func process_active_time(time_to_process: int):
 	print("%s is processing time: %d" % [name, time_to_process])
+	npc_process_time.emit(time_to_process)

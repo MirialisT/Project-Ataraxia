@@ -40,7 +40,7 @@ func _mouse_exit() -> void:
 func _ready():
 	print("_ready called, race_name is already set")
 	race = $PropertyController/RaceController.get_race(race_name, npc_name)
-	TimeProcesser.process_time.connect(_on_time_process)
+	get_parent().npc_process_time.connect(_on_time_process)
 	sprite_handler()
 	fix_position()
 	stats_handler.modify_stats(race.get_race_buffs())
@@ -93,8 +93,10 @@ func sprite_handler():
 	#return !$RayCast2D.is_colliding()
 
 func _on_time_process(time_amount: int):
-	print("%s processing time %d" % [npc_name, time_amount])
+	print("%s processing time %d, ticks to process: %d" % [npc_name, time_amount, time_amount/5])
 	if body.is_alive:
+		# Change body logic to tick, to it triggers internal funcs like bleed, heal
+		body.bleed()
 		update_hbar()
 	else:
 		if not state_corpse:
