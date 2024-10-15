@@ -1,10 +1,9 @@
 extends Button
 
-@export var SceneToLoad: PackedScene
+@export_enum("Town1", "Town2") var scene_name_to: String
+@export_enum("Town1", "Town2") var scene_name_from: String
 
 func _ready() -> void: pass
 
 func _pressed() -> void:
-	var root = get_tree().root
-	root.add_child(SceneToLoad.instantiate())
-	get_parent().visible = false
+	SceneSwitcher.switch_scene_to(scene_name_to, scene_name_from)
