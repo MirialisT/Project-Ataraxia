@@ -12,7 +12,7 @@ var inactive: bool = true
 @export var spawnpoints: Array[Vector2i]
 signal npc_process_time(int)
 func _init() -> void: print("Scene initialized")
-
+# TODO: long, make houses as sub scenes for town, handle entering-leaving
 func _ready() -> void:
 	TimeProcesser.process_time.connect(process_global_time)
 	print("%s::%s" % [name, _ready])

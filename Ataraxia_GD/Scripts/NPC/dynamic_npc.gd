@@ -92,9 +92,11 @@ func sprite_handler():
 	#$RayCast2D.force_raycast_update()
 	#return !$RayCast2D.is_colliding()
 
+# do a better version, handle big time diff for future
+# split events by small\average\big inactive time to optimize
 func _on_time_process(time_amount: int):
-	print("%s processing time %d, ticks to process: %d" % [npc_name, time_amount, time_amount/5])
-	for tick in int(time_amount)/5:
+	print("%s processing time %d, ticks to process: %d" % [npc_name, time_amount, int(time_amount/5.0)])
+	for tick in int(time_amount/5.0):
 		if body.is_alive:
 			# Change body logic to tick, to it triggers internal funcs like bleed, heal
 			body.bleed()
