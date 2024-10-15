@@ -34,10 +34,15 @@ func removeNPC(NPC_UID: int):
 	if SCENE_NPCS.erase(NPC_UID): print("%d erased successfully" % NPC_UID)
 	else: print("Cannot erase %d, non-existent" % NPC_UID)
 	
-func spawn_player(player_object: Player = null):
+func spawn_player(player_object: Node = null):
 	if player_object == null: player_object = preload("res://Scenes/player.tscn").instantiate()
 	add_child(player_object)
 	player_object.position = player_object.local_to_global_pos(player_spawnpoint)
+
+func unload_player() -> Node2D:
+	var player_node: Node = get_node("player")
+	remove_child(player_node)
+	return player_node
 	
 func process_global_time(global_time_tick: int = 0):
 	if inactive:

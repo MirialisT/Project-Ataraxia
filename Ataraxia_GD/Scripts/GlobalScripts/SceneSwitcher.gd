@@ -18,3 +18,13 @@ func start() -> void:
 	starting_scene.inactive = false
 	root.add_child(starting_scene)
 	current_scene = root.get_child(-1)
+
+func switch_scene_to(scene_name_to: String, scene_name_from: String):
+	var root = get_tree().root
+	var player_container: Node = null
+	player_container = current_scene.unload_player()
+	root.remove_child(current_scene)
+	inactive_scenes[scene_name_from] = current_scene
+	inactive_scenes[scene_name_to].spawn_player(player_container)
+	root.add_child(inactive_scenes[scene_name_to])
+	current_scene = root.get_child(-1)

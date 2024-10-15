@@ -21,7 +21,6 @@ offset_right = 390.0
 offset_bottom = 342.0
 text = "Town1"
 script = ExtResource("1_pf7pe")
-SceneToLoad = ExtResource("2_kno2i")
 
 [node name="ToTown2" type="Button" parent="."]
 layout_mode = 0
@@ -31,7 +30,6 @@ offset_right = 619.0
 offset_bottom = 345.0
 text = "Town2"
 script = ExtResource("1_pf7pe")
-SceneToLoad = ExtResource("3_totym")
 
 [node name="Button" type="Button" parent="."]
 layout_mode = 0

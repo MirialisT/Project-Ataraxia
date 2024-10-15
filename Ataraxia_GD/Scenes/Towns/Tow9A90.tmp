@@ -58,5 +58,3 @@ offset_right = 486.0
 offset_bottom = 138.0
 text = "Switch to town2"
 script = ExtResource("3_dwd0x")
-scene_name_to = "Town2"
-scene_name_from = "Town1"
