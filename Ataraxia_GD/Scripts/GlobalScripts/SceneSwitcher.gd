@@ -19,6 +19,7 @@ func start() -> void:
 	root.add_child(starting_scene)
 	current_scene = root.get_child(-1)
 
+# split for town switch and in-town switch without global time processing
 func switch_scene_to(scene_name_to: String, scene_name_from: String):
 	var root = get_tree().root
 	var player_container: Node = null
