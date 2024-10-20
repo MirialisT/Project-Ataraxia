@@ -4,7 +4,6 @@ var NPCSpawnerObject = load("res://Resources/NPCSpawner.tres")
 var SCENE_NPCS: Dictionary
 var inactive_time: int = 0
 var inactive: bool = true
-# @export var SCENE_NAME: String
 @export var npc_spawn_number: int = 1
 @export var Scene_name: String = "Scene_name_placeholder"
 @export var player_spawnpoint: Vector2i = Vector2i(17,7)
@@ -43,7 +42,10 @@ func unload_player() -> Node2D:
 	var player_node: Node = get_node("player")
 	remove_child(player_node)
 	return player_node
-	
+
+# TODO: for future: add region inactive time, do not accumulate time for towns in inactive region,
+# accumulate time for region, send time to towns on player entering reg instead, include
+# last-time-visited for towns
 func process_global_time(global_time_tick: int = 0):
 	if inactive:
 		inactive_time += global_time_tick

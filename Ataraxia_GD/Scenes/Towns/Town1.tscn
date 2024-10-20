@@ -45,6 +45,7 @@ sources/6 = SubResource("TileSetAtlasSource_wo5ah")
 
 [node name="Town1" type="Node2D"]
 script = ExtResource("1_w5u4g")
+Scene_name = "Town1"
 spawnpoints = Array[Vector2i]([Vector2i(17, 5)])
 
 [node name="TileMap" type="TileMapLayer" parent="."]
