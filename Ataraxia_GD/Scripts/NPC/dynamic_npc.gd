@@ -9,14 +9,12 @@ extends NPC
 var npc_name: String
 var sex: String
 var race_name: String
-@export var tile_size = 32
-@onready var race
+@onready var npc_uid: int
+@onready var race = $PropertyController/RaceController.get_race(race_name, npc_name)
 @onready var stats_handler = $PropertyController/StatsController.StatsHandler.new()
 @onready var body = $PropertyController/BodyController.Body.new()
 var NPCGenerator = load("res://Resources/DynamicNPCGenerator.tres")
 signal NPC_DEATH(NPC_UID: int)
-
-func _init() -> void: print("DNPC is initiated")
 
 func get_hit(bodypart_name: String, damage_amount: int, bleed_severity: int):
 	# think about splitting into two modules -> npc body and npc behaviour
@@ -39,7 +37,6 @@ func _mouse_exit() -> void:
 	
 func _ready():
 	print("_ready called, race_name is already set")
-	race = $PropertyController/RaceController.get_race(race_name, npc_name)
 	get_parent().npc_process_time.connect(_on_time_process)
 	sprite_handler()
 	fix_position()
@@ -113,7 +110,7 @@ func rot():
 	print("%s rotting, %d / %d" % [npc_name, corpse_decaying_timer, corpse_decay_time])
 	if corpse_decaying_timer >= corpse_decay_time:
 		print("%s finished rotting, clearing" % npc_name)
-		NPC_DEATH.emit(get_rid().get_id())
+		NPC_DEATH.emit(npc_uid)
 		queue_free()
 		return false
 	return true

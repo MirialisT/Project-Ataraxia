@@ -3,7 +3,6 @@ extends NPC
 @export var npc_name = "changeme"
 @export_enum("Human", "Elf") var race_name: String
 @export_enum("Male", "Female", "BeastMale", "BeastFemale") var sex: String
-@export var tile_size = 32
 @onready var race = $PropertyController/RaceController.get_race(race_name, npc_name)
 @onready var stats_handler = $PropertyController/StatsController.StatsHandler.new()
 @onready var body = $PropertyController/BodyController.Body.new()

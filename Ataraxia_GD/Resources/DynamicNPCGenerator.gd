@@ -31,6 +31,7 @@ class_name DynamicNPCGen
 @export var sex_library: Array = ["Male", "Female"]
 
 func generate_npc():
+	print(generate_npc)
 	var rand_race = race_library[randi() % race_library.size()]
 	var rand_sex: String = sex_library[randi_range(0,1)]
 	var rand_name: String

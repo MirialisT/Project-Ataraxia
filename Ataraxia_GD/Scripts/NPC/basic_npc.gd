@@ -1,8 +1,9 @@
 extends Area2D
 class_name NPC
-var money: int = 100
+@export var money: int = 100
 var state_corpse: bool = false
 @export var corpse_decay_time: int = 200
+@export var tile_size = 32
 var corpse_decaying_timer = 0
 var pronouns: Dictionary = {
 	"third_face": "3rd_placeholder",

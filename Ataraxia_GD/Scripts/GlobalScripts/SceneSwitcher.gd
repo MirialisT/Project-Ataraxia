@@ -21,6 +21,7 @@ func start() -> void:
 
 # split for town switch and in-town switch without global time processing
 func switch_scene_to(scene_name_to: String, scene_name_from: String):
+	print("%s::%s::%s" % [switch_scene_to, scene_name_to, scene_name_from])
 	var root = get_tree().root
 	var player_container: Node = null
 	player_container = current_scene.unload_player()
@@ -32,5 +33,4 @@ func switch_scene_to(scene_name_to: String, scene_name_from: String):
 	root.add_child(inactive_scenes[scene_name_to])
 	inactive_scenes.erase(scene_name_to)
 	current_scene = root.get_child(-1)
-	print("Switched from %s to %s, triggering time processing" % [scene_name_from, scene_name_to])
 	current_scene.process_global_time()
