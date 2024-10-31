@@ -1,4 +1,4 @@
-extends NPC
+extends Character
 # TODO: Big things, FOCUS ON NPC first
 # JobDriver class \ resource, occupations
 # Skills for both player and NPCs
@@ -9,14 +9,14 @@ extends NPC
 var npc_name: String
 var sex: String
 var race_name: String
-@export var tile_size = 32
-@onready var race
+var age: int = 0
+
+@onready var npc_uid: int
+@onready var race = $PropertyController/RaceController.get_race(race_name, npc_name)
 @onready var stats_handler = $PropertyController/StatsController.StatsHandler.new()
 @onready var body = $PropertyController/BodyController.Body.new()
 var NPCGenerator = load("res://Resources/DynamicNPCGenerator.tres")
 signal NPC_DEATH(NPC_UID: int)
-
-func _init() -> void: print("DNPC is initiated")
 
 func get_hit(bodypart_name: String, damage_amount: int, bleed_severity: int):
 	# think about splitting into two modules -> npc body and npc behaviour
@@ -27,7 +27,7 @@ func get_hit(bodypart_name: String, damage_amount: int, bleed_severity: int):
 
 func _mouse_enter() -> void:
 	# TODO: maybe change to RichText + statuses?
-	$PanelContainer/Label.text = "%s %s %s\n%d/%d %d\n" % [npc_name, sex, race_name, body.get_current_health(), body.get_max_health(), body.total_blood]
+	$PanelContainer/Label.text = "%s %d %s %s\n%d/%d %d\n" % [npc_name, age/TimeProcesser.year_to_ticks, sex, race_name, body.get_current_health(), body.get_max_health(), body.total_blood]
 	$PanelContainer/Label.text += "Alive: %s, consious: %s" % [body.is_alive, body.is_consious]
 	$PanelContainer/Label.text += str(stats_handler.stats)
 	$PanelContainer/Label.visible = true
@@ -38,8 +38,9 @@ func _mouse_exit() -> void:
 	$PanelContainer.visible = false
 	
 func _ready():
+	# I really need to rewrite this part
+	age = randi_range(60, 85) * TimeProcesser.year_to_ticks
 	print("_ready called, race_name is already set")
-	race = $PropertyController/RaceController.get_race(race_name, npc_name)
 	get_parent().npc_process_time.connect(_on_time_process)
 	sprite_handler()
 	fix_position()
@@ -48,7 +49,7 @@ func _ready():
 	$hbar.max_value = body.get_max_health()
 	$bloodbar.max_value = body.total_blood
 	$bloodbar.add_theme_color_override("font_outline_color", Color(1, 0, 0))
-	print("%s %s %s, level %d, spare points %d" % [race.race_name, sex, npc_name, stats_handler.level, stats_handler.spare_points])
+	print("%s %s %s, %d, level %d, spare points %d" % [race.race_name, sex, npc_name, age/TimeProcesser.year_to_ticks, stats_handler.level, stats_handler.spare_points])
 	print("Current race buffs: ", race.get_race_buffs())
 	print("Current stats: ", stats_handler.get_stats_dict())
 	print("%d/%d" % [body.get_max_health(), body.get_current_health()])
@@ -95,9 +96,17 @@ func sprite_handler():
 # do a better version, handle big time diff for future
 # split events by small\average\big inactive time to optimize
 func _on_time_process(time_amount: int):
-	print("%s processing time %d, ticks to process: %d" % [npc_name, time_amount, int(time_amount/5.0)])
-	for tick in int(time_amount/5.0):
+	var ticks_to_process: int = TimeProcesser.time_to_ticks(time_amount)
+	age += ticks_to_process
+	# add human-readable age and compare it, too much calculations.
+	print("%s processing time %d, ticks to process: %d" % [npc_name, time_amount, ticks_to_process])
+	for tick in ticks_to_process:
 		if body.is_alive:
+			var human_age = age/TimeProcesser.year_to_ticks
+			if human_age > 80:
+				if DnD.roll(100) >= 70 + (110 - human_age):
+					print("%s died from old age." % npc_name)
+					body.kill()
 			# Change body logic to tick, to it triggers internal funcs like bleed, heal
 			body.bleed()
 			update_hbar()
@@ -113,7 +122,7 @@ func rot():
 	print("%s rotting, %d / %d" % [npc_name, corpse_decaying_timer, corpse_decay_time])
 	if corpse_decaying_timer >= corpse_decay_time:
 		print("%s finished rotting, clearing" % npc_name)
-		NPC_DEATH.emit(get_rid().get_id())
+		NPC_DEATH.emit(npc_uid)
 		queue_free()
 		return false
 	return true

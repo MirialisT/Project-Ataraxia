@@ -55,8 +55,6 @@ class Body:
 		"leftleg": BodyPart.new("leftleg"),
 		"rightleg": BodyPart.new("rightleg")
 	}
-		
-	func _init() -> void: pass
 	# check bleeding, fix numbers&stuff
 	func bleed():
 		var bleeding_parts: Array = get_bleeding_bodyparts()

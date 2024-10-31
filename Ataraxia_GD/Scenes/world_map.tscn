@@ -1,9 +1,6 @@
-[gd_scene load_steps=5 format=3 uid="uid://c05ar4kp5gbkt"]
+[gd_scene load_steps=2 format=3 uid="uid://c05ar4kp5gbkt"]
 
-[ext_resource type="Script" path="res://Scenes/Towns/onTownClick.gd" id="1_pf7pe"]
-[ext_resource type="PackedScene" uid="uid://y5q6m6r8khvj" path="res://Scenes/Towns/Town1.tscn" id="2_kno2i"]
-[ext_resource type="PackedScene" uid="uid://b6xd1l6nexsti" path="res://Scenes/Towns/Town2.tscn" id="3_totym"]
-[ext_resource type="Script" path="res://Scenes/test_LOAD_SCENES.gd" id="4_pnchy"]
+[ext_resource type="Script" path="res://Scenes/LoadScenes.gd" id="4_pnchy"]
 
 [node name="WorldMap" type="Control"]
 layout_mode = 3
@@ -13,29 +10,11 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="ToTown1" type="Button" parent="."]
-layout_mode = 0
-offset_left = 219.0
-offset_top = 226.0
-offset_right = 390.0
-offset_bottom = 342.0
-text = "Town1"
-script = ExtResource("1_pf7pe")
-
-[node name="ToTown2" type="Button" parent="."]
-layout_mode = 0
-offset_left = 448.0
-offset_top = 229.0
-offset_right = 619.0
-offset_bottom = 345.0
-text = "Town2"
-script = ExtResource("1_pf7pe")
-
 [node name="Button" type="Button" parent="."]
 layout_mode = 0
-offset_left = 352.0
-offset_top = 356.0
-offset_right = 481.0
-offset_bottom = 400.0
+offset_left = 551.0
+offset_top = 309.0
+offset_right = 680.0
+offset_bottom = 353.0
+text = "start"
 script = ExtResource("4_pnchy")
-scenes_to_load = Array[PackedScene]([ExtResource("2_kno2i"), ExtResource("3_totym")])

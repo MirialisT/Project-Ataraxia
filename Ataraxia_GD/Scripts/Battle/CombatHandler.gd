@@ -1,9 +1,10 @@
 extends Control
-@export var enemy_object: NPC
+@export var enemy_object: Character
 @export var player_object: Player
 func _ready() -> void:
 	pass
 
+# Switch to global combat handler? Prolly better, not fixated on player pos and stuff, just pass nodes
 
 func _on_enemy_part_got_hit(bodypart_name: String, damage_amount: int, bleed_severity: int) -> void:
 	enemy_object.get_hit(bodypart_name, damage_amount, bleed_severity)
