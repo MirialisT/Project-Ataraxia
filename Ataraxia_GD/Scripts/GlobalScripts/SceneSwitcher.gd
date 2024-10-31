@@ -4,11 +4,13 @@ var inactive_scenes: Dictionary
 var current_scene: Node
 var starting_scene: Node
 var viable_scenes: Array[String] = ["Town2"]
-func _ready() -> void:
-	starting_scene = preload("res://Scenes/Towns/Town1.tscn").instantiate()
+
+func set_starting_scene(scene_name: String):
+	var scene_to_load: PackedScene = load("res://Scenes/Towns/%s.tscn" % scene_name)
+	starting_scene = scene_to_load.instantiate()
 	starting_scene.spawn_player()
 	
-func start() -> void:
+func prepare() -> void:
 	var root = get_tree().root
 	for scene_name in viable_scenes:
 		var scene_to_load: PackedScene = load("res://Scenes/Towns/%s.tscn" % scene_name)
@@ -16,7 +18,11 @@ func start() -> void:
 		inactive_scenes[scene_name] = root.get_child(-1)
 		root.remove_child(root.get_child(-1))
 	starting_scene.inactive = false
+	
+func start_game() -> void:
+	var root = get_tree().root
 	root.add_child(starting_scene)
+	if TimeProcesser.start_time: TimeProcesser.time_process(TimeProcesser.start_time)
 	current_scene = root.get_child(-1)
 
 # split for town switch and in-town switch without global time processing

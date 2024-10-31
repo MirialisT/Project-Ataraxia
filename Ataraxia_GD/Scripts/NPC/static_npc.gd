@@ -1,4 +1,4 @@
-extends NPC
+extends Character
 
 @export var npc_name = "changeme"
 @export_enum("Human", "Elf") var race_name: String

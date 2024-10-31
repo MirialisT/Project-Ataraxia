@@ -1,5 +1,5 @@
 extends Area2D
-class_name NPC
+class_name Character
 @export var money: int = 100
 var state_corpse: bool = false
 @export var corpse_decay_time: int = 200

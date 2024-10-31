@@ -1,7 +1,6 @@
-extends Area2D
+extends Character
 class_name Player
 
-@export var tile_size = 32
 @onready var race = $PropertyController/RaceController.Human.new()
 @onready var body = $PropertyController/BodyController.Body.new()
 @onready var stats_handler = $PropertyController/StatsController.StatsHandler.new()
@@ -43,12 +42,12 @@ func _unhandled_input(event):
 	# print("In-combat:%s" % in_combat, event)
 	if !in_combat:
 		var target = $RayCast2D.get_collider()
-		if target is NPC: $UI.visible = true
+		if target is Character: $UI.visible = true
 		else: $UI.visible = false
 		if event.is_action_pressed("DEBUG_TRIGGER_COMBAT"):
-			if target != null and target is NPC and target.body.is_alive: initiate_combat(target)
+			if target != null and target is Character and target.body.is_alive: initiate_combat(target)
 		if event.is_action_pressed("Interact"):
-			if target != null and target is NPC: initiate_interaction(target)
+			if target != null and target is Character: initiate_interaction(target)
 	for dir in inputs.keys():
 		# Do not touch for now, solved key ghosting after fight
 		if in_combat:
@@ -61,7 +60,7 @@ func _unhandled_input(event):
 				# print("Got movement %s" % dir)
 				move(dir)
 			
-func initiate_combat(target: NPC):
+func initiate_combat(target: Character):
 	# TODO: change combat to completely separate scene, or make whole overlay
 	$Combat.enemy_object = target
 	$Combat.player_object = self
@@ -74,7 +73,7 @@ func stop_combat():
 	$Combat.set_visible(false)
 	in_combat = false
 
-func initiate_interaction(target: NPC):
+func initiate_interaction(target: Character):
 	var target_3d: String = target.pronouns["third_face"]
 	var target_ps: String = target.pronouns["possesive"]
 	print("It can be alive, either NPC or beast")
@@ -97,7 +96,7 @@ func collision_handler(direction):
 		
 func move(dir):
 	if collision_handler(dir):
-		TimeProcesser.DEBUG_LOG(5)
+		TimeProcesser.time_process(5)
 		position += inputs[dir] * tile_size
 		
 # Split positioning into global, universal script

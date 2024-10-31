@@ -8,9 +8,9 @@ var NPCGenerator = load("res://Resources/DynamicNPCGenerator.tres")
 # FUNCTIONS SECTION
 func spawnNPCs(spawnpoints: Array[Vector2i]):
 	var DNPC_CONTAINER: Dictionary
-	var DNPC: NPC
+	var DNPC: Character
 	var DNPC_UID: int
-	var spawnedNPC: NPC
+	var spawnedNPC: Character
 	for spawnpoint in spawnpoints:
 		DNPC = preload("res://Scenes/DynamicNPC.tscn").instantiate()
 		DNPC_UID = DNPC.get_rid().get_id()
@@ -20,7 +20,7 @@ func spawnNPCs(spawnpoints: Array[Vector2i]):
 		DNPC_CONTAINER[DNPC_UID] = spawnedNPC
 	return DNPC_CONTAINER
 
-func spawn_npc_at_pos(DNPC: NPC, DNPC_UID: int, spawnpoint: Vector2i):
+func spawn_npc_at_pos(DNPC: Character, DNPC_UID: int, spawnpoint: Vector2i):
 	print("%s:%s:%d:%s" % [spawn_npc_at_pos, DNPC, DNPC_UID, spawnpoint])
 	var generated_npc: Array = NPCGenerator.generate_npc()
 	DNPC.sex = generated_npc[1]
