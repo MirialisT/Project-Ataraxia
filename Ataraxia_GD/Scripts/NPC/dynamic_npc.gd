@@ -36,6 +36,7 @@ func _mouse_exit() -> void:
 	$PanelContainer.visible = false
 	
 func _ready():
+	# I really need to rewrite this part
 	print("_ready called, race_name is already set")
 	get_parent().npc_process_time.connect(_on_time_process)
 	sprite_handler()

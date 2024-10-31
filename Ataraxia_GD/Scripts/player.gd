@@ -7,10 +7,12 @@ class_name Player
 @onready var stats_handler = $PropertyController/StatsController.StatsHandler.new()
 # TODO: systems:
 # Inventory (for both PC and NPC)
-# UPD1: Items (only basic): do it via Resources, check link on side for info
+# UPD1: Items (only basic): do it via Resources, check link
+# https://www.youtube.com/watch?v=nR0nCFJ8-qM
 # 	Armor upd: handle with Resource class, damage process is still to come up with
 # Weapons with different damage type (blunt, cut and pierce for now)
 #	-||- with armor and items, Resource -> class name handling?
+# UPD2: Armor\weapon damage solution: armor\weapon class
 var in_combat: bool = false
 var inputs = {
 	"move_right": Vector2.RIGHT,
@@ -18,7 +20,10 @@ var inputs = {
 	"move_up": Vector2.UP,
 	"move_down": Vector2.DOWN
 	}
-			
+# check for community inventory solutions
+#	prolly separate scene added to player, maybe another resource?, global script sounds meh?
+# A ton of Resource's for every item in game \ dynamic generation?
+var inventory: Dictionary
 func _ready():
 	fix_position()
 	stats_handler.modify_stats(race.get_race_buffs())
@@ -28,6 +33,9 @@ func _ready():
 	print("Current stats: ", stats_handler.get_stats_dict())
 	print("%d/%d" % [body.get_max_health(), body.get_current_health()])
 	print("\n")
+	# Looks horrible, need an item spawner asap. Works though.
+	inventory[load("res://Resources/BasicItem.tres")] = 1
+	for item in inventory.keys(): item.DEBUG()
 
 func _unhandled_input(event):
 	# this catches mouse too, need to handle
@@ -92,14 +100,13 @@ func move(dir):
 		TimeProcesser.DEBUG_LOG(5)
 		position += inputs[dir] * tile_size
 		
-func fix_position():
+# Split positioning into global, universal script
+# check for BasicNPC, NPCSpawner
+func fix_position() -> void:
 	position = position.snapped(Vector2.ONE * tile_size)
 	position += Vector2.ONE * tile_size/2
-
-# Split positioning into global script
-func set_local_pos(local_points: Vector2i):
-	position = local_to_global_pos(local_points)
-	return self
-	
-func local_to_global_pos(local_points: Vector2i):
+#func set_local_pos(local_points: Vector2i):
+	#position = local_to_global_pos(local_points)
+	#return self # Dafuq? It's not even used. Okay, it's technically depricated for player, but used for DNPC in NPCSpawner
+func local_to_global_pos(local_points: Vector2i) -> Vector2i:
 	return Vector2i((local_points.x*32 + 16), (local_points.y*32 + 16))
