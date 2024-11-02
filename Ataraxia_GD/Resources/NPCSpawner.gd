@@ -27,5 +27,5 @@ func spawn_npc_at_pos(DNPC: Character, DNPC_UID: int, spawnpoint: Vector2i):
 	DNPC.race_name = generated_npc[0]
 	DNPC.npc_name = generated_npc[2]
 	DNPC.name = str(DNPC_UID)
-	DNPC.set_local_pos(spawnpoint)
+	DNPC.position = PositionConverter.local_to_global_pos(spawnpoint)
 	return DNPC

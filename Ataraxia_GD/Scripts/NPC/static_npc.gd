@@ -1,7 +1,7 @@
 extends Character
-
+# TODO: UPDATE IT PLS
 @export var npc_name = "changeme"
-@export_enum("Human", "Elf") var race_name: String
+@export_enum("Human", "Elf", "HighElf", "HalfElf", "BeastMan") var race_name: String
 @export_enum("Male", "Female", "BeastMale", "BeastFemale") var sex: String
 @onready var race = $PropertyController/RaceController.get_race(race_name, npc_name)
 @onready var stats_handler = $PropertyController/StatsController.StatsHandler.new()
@@ -34,7 +34,6 @@ func _mouse_exit() -> void:
 func _ready():
 	TimeProcesser.process_time.connect(_on_time_process)
 	sprite_handler()
-	fix_position()
 	stats_handler.modify_stats(race.get_race_buffs())
 	$hbar.max_value = body.get_max_health()
 	print("%s %s, level %d, spare points %d" % [race.race_name, npc_name, stats_handler.level, stats_handler.spare_points])

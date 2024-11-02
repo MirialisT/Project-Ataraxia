@@ -1,5 +1,5 @@
 extends Node
-
+# add support for sexes
 class BodyPart:
 	const base_bp_health: int = 50
 	var is_intact: bool = true
@@ -46,7 +46,7 @@ class Body:
 	var is_alive: bool = true
 	var is_consious: bool = true
 	
-	var bodyparts_container = {
+	var bodyparts_container: Dictionary = {
 	# TODO: handle eyes, parts that are not intact affect stats + parser description
 		"head": BodyPart.new("head", true),
 		"torso": BodyPart.new("torso", true),

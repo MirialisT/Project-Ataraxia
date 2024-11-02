@@ -24,6 +24,7 @@ var inputs = {
 # A ton of Resource's for every item in game \ dynamic generation?
 var inventory: Dictionary
 func _ready():
+	#area_entered.connect(log_area)
 	fix_position()
 	stats_handler.modify_stats(race.get_race_buffs())
 	body.apply_buffs_and_reset(stats_handler.get_stat_int("CON"))
@@ -36,18 +37,27 @@ func _ready():
 	inventory[load("res://Resources/BasicItem.tres")] = 1
 	for item in inventory.keys(): item.DEBUG()
 
+func log_area(received_area: Area2D): print(received_area)
+func show_actions(state: bool):
+	$UI/Actions.visible = state
 func _unhandled_input(event):
+	show_actions(false)
 	# this catches mouse too, need to handle
 	# ignores mouse -> ignores mouse+keyboard
 	# print("In-combat:%s" % in_combat, event)
 	if !in_combat:
 		var target = $RayCast2D.get_collider()
-		if target is Character: $UI.visible = true
-		else: $UI.visible = false
-		if event.is_action_pressed("DEBUG_TRIGGER_COMBAT"):
-			if target != null and target is Character and target.body.is_alive: initiate_combat(target)
-		if event.is_action_pressed("Interact"):
-			if target != null and target is Character: initiate_interaction(target)
+		# Think about on-enter-scene-switch approach
+		# Prolly interactable objects with scene_to String
+		#if target is TileMapLayer:
+			#var tile_data: TileData = target.get_cell_tile_data(target.global_position)
+			#print(tile_data.get_custom_data("scene_move_to"))
+		if target is Character:
+			show_actions(true)
+			if event.is_action_pressed("DEBUG_TRIGGER_COMBAT"):
+				if target != null and target is Character and target.body.is_alive: initiate_combat(target)
+			if event.is_action_pressed("Interact"):
+				if target != null and target is Character: initiate_interaction(target)
 	for dir in inputs.keys():
 		# Do not touch for now, solved key ghosting after fight
 		if in_combat:

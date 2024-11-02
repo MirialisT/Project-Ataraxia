@@ -14,15 +14,23 @@ func _init() -> void: print("Scene initialized")
 # TODO: long, make houses as sub scenes for town, handle entering-leaving
 func _ready() -> void:
 	TimeProcesser.process_time.connect(process_global_time)
+	for child in get_children():
+		if child is TransitionHandler:
+			print("GOT TRANSITION")
+			child.area_entered.connect(move_player)
 	print("%s::%s" % [_ready, name])
 	# load_homes()
 	SCENE_NPCS = NPCSpawnerObject.spawnNPCs(spawnpoints)
 	addNPCs()
 
+func move_player(called_area: TransitionHandler):
+	print("CALLED MOVE")
+	SceneSwitcher.switch_scene_to(called_area.scene_to, name)
+	
 func addNPCs():
 	print(addNPCs)
 	for NPC_object in SCENE_NPCS.values():
-		NPC_object.NPC_DEATH.connect(removeNPC)
+		NPC_object.NPC_DESTROY.connect(removeNPC)
 		add_child(NPC_object)
 
 func removeNPC(NPC_UID: int) -> void:
@@ -30,12 +38,15 @@ func removeNPC(NPC_UID: int) -> void:
 	if SCENE_NPCS.erase(NPC_UID): print("%d erased successfully" % NPC_UID)
 	else: print("Cannot erase %d, non-existent" % NPC_UID)
 	
-func spawn_player(player_object: Node = null) -> void:
+func spawn_player(player_object: Node = null, preferred_spawnpoint: Vector2i = Vector2i()) -> void:
 	print("%s::%s::%s" % [spawn_player, player_object, scene_name])
 	if player_object == null: player_object = preload("res://Scenes/player.tscn").instantiate()
 	add_child(player_object)
 	# get player spawnpoint from export variable from button
-	player_object.position = player_object.local_to_global_pos(player_spawnpoint)
+	if preferred_spawnpoint.length():
+		player_object.position = player_object.local_to_global_pos(preferred_spawnpoint)
+	else:
+		player_object.position = player_object.local_to_global_pos(player_spawnpoint)
 
 func unload_player() -> Node2D:
 	print("%s::%s" % [unload_player, scene_name])

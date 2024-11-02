@@ -23,6 +23,7 @@ config/icon="res://Sprites/icon.svg"
 TimeProcesser="*res://Scripts/GlobalScripts/time_processer.gd"
 DnD="*res://Scripts/GlobalScripts/DnD.gd"
 SceneSwitcher="*res://Scripts/GlobalScripts/SceneSwitcher.gd"
+PositionConverter="*res://Scripts/GlobalScripts/position_converter.gd"
 
 [display]
 
