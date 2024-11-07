@@ -9,6 +9,7 @@ func _ready() -> void:
 func _on_enemy_part_got_hit(bodypart_name: String, damage_amount: int, bleed_severity: int) -> void:
 	enemy_object.get_hit(bodypart_name, damage_amount, bleed_severity)
 	# rework ticks
+	# fix broken part get hit -> crash
 	TimeProcesser.time_process(5)
 	if not enemy_object.body.get_bodypart_status(bodypart_name): enemy_part_destroyed(bodypart_name)
 
