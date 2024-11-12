@@ -25,8 +25,10 @@ func start_game() -> void:
 	if TimeProcesser.start_time: TimeProcesser.time_process(TimeProcesser.start_time)
 	current_scene = root.get_child(-1)
 
-# split for town switch and in-town switch without global time processing
-func switch_scene_to(scene_name_to: String, scene_name_from: String):
+# 1. split for town switch and in-town switch without global time processing
+# 2. need to preprocess scene-to to get available tiles 
+# 	on-load and spawn player on either pref_spawn or available tile
+func switch_scene_to(scene_name_to: String, scene_name_from: String, pref_spawnpoint: Vector2i = Vector2i()):
 	print("%s::%s::%s" % [switch_scene_to, scene_name_to, scene_name_from])
 	var root = get_tree().root
 	var player_container: Node = null
@@ -34,7 +36,7 @@ func switch_scene_to(scene_name_to: String, scene_name_from: String):
 	root.remove_child(current_scene)
 	current_scene.inactive = true
 	inactive_scenes[scene_name_from] = current_scene
-	inactive_scenes[scene_name_to].spawn_player(player_container)
+	inactive_scenes[scene_name_to].spawn_player(player_container, pref_spawnpoint)
 	inactive_scenes[scene_name_to].inactive = false
 	root.add_child(inactive_scenes[scene_name_to])
 	inactive_scenes.erase(scene_name_to)

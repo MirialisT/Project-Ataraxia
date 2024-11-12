@@ -5,4 +5,5 @@ func _pressed() -> void:
 	SceneSwitcher.set_starting_scene("Town1")
 	SceneSwitcher.prepare()
 	SceneSwitcher.start_game()
+	# print_orphan_nodes() - orphan nodes = unloaded scenes, do not care
 	get_parent().visible = false

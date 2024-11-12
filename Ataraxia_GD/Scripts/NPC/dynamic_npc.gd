@@ -1,22 +1,24 @@
 extends Character
+class_name DynamicNPC
 # TODO: Big things, FOCUS ON NPC first
 # JobDriver class \ resource, occupations
 # Skills for both player and NPCs
 # DNPC generator for region\town root (DONE), consider race habitat and amount + paths
-# Save dynamic NPC to dynamic-to-static npc dictionary (DONE) and save as scene state
+#	this ^ will need some reworks after regions are introduced
 # accumulate time from last time scene visited and calculate progress on diff
 # Event and Quest systems for both DNPC and SNPC
+
 var npc_name: String
-var sex: String
 var race_name: String
 var age: int = 0
+var sex: String
 
 @onready var npc_uid: int
 @onready var race = $PropertyController/RaceController.get_race(race_name, npc_name)
 @onready var stats_handler = $PropertyController/StatsController.StatsHandler.new()
 @onready var body = $PropertyController/BodyController.Body.new()
-var NPCGenerator = load("res://Resources/DynamicNPCGenerator.tres")
 signal NPC_DEATH(NPC_UID: int)
+signal NPC_DESTROY(NPC_UID: int)
 
 func get_hit(bodypart_name: String, damage_amount: int, bleed_severity: int):
 	# think about splitting into two modules -> npc body and npc behaviour
@@ -43,12 +45,9 @@ func _ready():
 	print("_ready called, race_name is already set")
 	get_parent().npc_process_time.connect(_on_time_process)
 	sprite_handler()
-	fix_position()
 	stats_handler.modify_stats(race.get_race_buffs())
 	body.apply_buffs_and_reset(stats_handler.get_stat_int("CON"))
-	$hbar.max_value = body.get_max_health()
-	$bloodbar.max_value = body.total_blood
-	$bloodbar.add_theme_color_override("font_outline_color", Color(1, 0, 0))
+	setup_hbar()
 	print("%s %s %s, %d, level %d, spare points %d" % [race.race_name, sex, npc_name, age/TimeProcesser.year_to_ticks, stats_handler.level, stats_handler.spare_points])
 	print("Current race buffs: ", race.get_race_buffs())
 	print("Current stats: ", stats_handler.get_stats_dict())
@@ -57,11 +56,16 @@ func _ready():
 	print("\n")
 
 func handle_death():
+	NPC_DEATH.emit(npc_uid)
 	print("%s has died, starting to rot" % npc_name)
 	$hbar.queue_free()
 	$bloodbar.queue_free()
-	
 
+func setup_hbar():
+	$hbar.max_value = body.get_max_health()
+	$bloodbar.max_value = body.total_blood
+	$bloodbar.add_theme_color_override("font_outline_color", Color(1, 0, 0))
+	
 func update_hbar():
 	$hbar.value = body.get_current_health()
 	$bloodbar.value = body.total_blood
@@ -99,6 +103,7 @@ func _on_time_process(time_amount: int):
 	var ticks_to_process: int = TimeProcesser.time_to_ticks(time_amount)
 	age += ticks_to_process
 	# add human-readable age and compare it, too much calculations.
+	# handle ticks less than 5 min | ticks under 5 min BREAK COMBAT DEATH
 	print("%s processing time %d, ticks to process: %d" % [npc_name, time_amount, ticks_to_process])
 	for tick in ticks_to_process:
 		if body.is_alive:
@@ -122,7 +127,7 @@ func rot():
 	print("%s rotting, %d / %d" % [npc_name, corpse_decaying_timer, corpse_decay_time])
 	if corpse_decaying_timer >= corpse_decay_time:
 		print("%s finished rotting, clearing" % npc_name)
-		NPC_DEATH.emit(npc_uid)
+		NPC_DESTROY.emit(npc_uid)
 		queue_free()
 		return false
 	return true
