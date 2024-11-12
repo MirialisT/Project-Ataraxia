@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://c5eegyl7ru6gb"
-path="res://.godot/imported/dummy_leftleg.png-47814ed832df74d4ba1981ea9ef16f04.ctex"
+path="res://.godot/imported/dummy_leftleg.png-b10d2a2d09a8d290a8ff3b5a85d97708.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Sprites/BattleParts/Hover/dummy_leftleg.png"
-dest_files=["res://.godot/imported/dummy_leftleg.png-47814ed832df74d4ba1981ea9ef16f04.ctex"]
+source_file="res://Sprites/BattleParts/hover/dummy_leftleg.png"
+dest_files=["res://.godot/imported/dummy_leftleg.png-b10d2a2d09a8d290a8ff3b5a85d97708.ctex"]
 
 [params]
 
