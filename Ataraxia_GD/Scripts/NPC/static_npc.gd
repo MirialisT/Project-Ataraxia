@@ -1,4 +1,5 @@
 extends Character
+class_name StaticNPC
 # TODO: UPDATE IT PLS
 @export var npc_name = "changeme"
 @export_enum("Human", "Elf", "HighElf", "HalfElf", "BeastMan") var race_name: String

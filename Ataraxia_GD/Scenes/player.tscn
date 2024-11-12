@@ -10,7 +10,7 @@ size = Vector2(32, 32)
 
 [node name="player" type="Area2D"]
 position = Vector2(576, 352)
-collision_mask = 5
+collision_mask = 6
 script = ExtResource("1_2tdgr")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]

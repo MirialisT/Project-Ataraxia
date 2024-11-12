@@ -4,6 +4,7 @@ var NPCSpawnerObject = load("res://Resources/NPCSpawner.tres")
 var SCENE_NPCS: Dictionary
 var inactive_time: int = 0
 var inactive: bool = true
+#var transition_objects_array: Array[TransitionObject]
 @export var npc_spawn_number: int = 1
 @export var scene_name: String = "Scene_name_placeholder"
 @export var player_spawnpoint: Vector2i = Vector2i(17,7)
@@ -14,18 +15,10 @@ func _init() -> void: print("Scene initialized")
 # TODO: long, make houses as sub scenes for town, handle entering-leaving
 func _ready() -> void:
 	TimeProcesser.process_time.connect(process_global_time)
-	for child in get_children():
-		if child is TransitionHandler:
-			print("GOT TRANSITION")
-			child.area_entered.connect(move_player)
 	print("%s::%s" % [_ready, name])
 	# load_homes()
 	SCENE_NPCS = NPCSpawnerObject.spawnNPCs(spawnpoints)
 	addNPCs()
-
-func move_player(called_area: TransitionHandler):
-	print("CALLED MOVE")
-	SceneSwitcher.switch_scene_to(called_area.scene_to, name)
 	
 func addNPCs():
 	print(addNPCs)
@@ -53,7 +46,7 @@ func unload_player() -> Node2D:
 	var player_node: Node = get_node("player")
 	remove_child(player_node)
 	return player_node
-
+	
 # TODO: for future: add region inactive time, do not accumulate time for towns in inactive region,
 # accumulate time for region, send time to towns on player entering reg instead, include
 # last-time-visited for towns

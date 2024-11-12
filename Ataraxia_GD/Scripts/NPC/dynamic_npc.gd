@@ -1,4 +1,5 @@
 extends Character
+class_name DynamicNPC
 # TODO: Big things, FOCUS ON NPC first
 # JobDriver class \ resource, occupations
 # Skills for both player and NPCs
