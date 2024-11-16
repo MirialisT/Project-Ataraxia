@@ -4,7 +4,7 @@ var NPCSpawnerObject = load("res://Resources/NPCSpawner.tres")
 var SCENE_NPCS: Dictionary
 var inactive_time: int = 0
 var inactive: bool = true
-#var transition_objects_array: Array[TransitionObject]
+
 @export var npc_spawn_number: int = 1
 @export var scene_name: String = "Scene_name_placeholder"
 @export var player_spawnpoint: Vector2i = Vector2i(17,7)

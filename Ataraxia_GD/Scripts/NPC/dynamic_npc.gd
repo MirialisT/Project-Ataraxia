@@ -40,6 +40,9 @@ func _mouse_exit() -> void:
 	$PanelContainer.visible = false
 	
 func _ready():
+	print($RoutineController.current_routine)
+	self.area_entered.connect(pair_offset)
+	self.area_exited.connect(pair_offset_restore)
 	# I really need to rewrite this part
 	age = randi_range(60, 85) * TimeProcesser.year_to_ticks
 	print("_ready called, race_name is already set")
@@ -89,7 +92,7 @@ func sprite_handler():
 	if sex in ["BeastMale", "BeastFemale"]:
 		pronouns["third_face"] = "it"
 		pronouns["possesive"] = "it's"
-
+	
 #func collision_handler(direction):
 	#var raycast_x = tile_size * inputs[direction][0]
 	#var raycast_y = tile_size * inputs[direction][1]
@@ -106,22 +109,26 @@ func _on_time_process(time_amount: int):
 	# handle ticks less than 5 min | ticks under 5 min BREAK COMBAT DEATH
 	print("%s processing time %d, ticks to process: %d" % [npc_name, time_amount, ticks_to_process])
 	for tick in ticks_to_process:
-		if body.is_alive:
-			var human_age = age/TimeProcesser.year_to_ticks
-			if human_age > 80:
-				if DnD.roll(100) >= 70 + (110 - human_age):
-					print("%s died from old age." % npc_name)
-					body.kill()
-			# Change body logic to tick, to it triggers internal funcs like bleed, heal
-			body.bleed()
-			update_hbar()
-		else:
-			if not state_corpse:
-				state_corpse = true
-				handle_death()
-		if state_corpse:
-			if !rot(): break
+		if roll_for_death(): break
 
+# Split this into body processing and sudden death trigger
+func roll_for_death():
+	if body.is_alive:
+		var human_age = age/TimeProcesser.year_to_ticks
+		if human_age > 80:
+			if DnD.roll(100) >= 70 + (110 - human_age):
+				print("%s died from old age." % npc_name)
+				body.kill()
+		# Change body logic to tick, to it triggers internal funcs like bleed, heal
+		body.bleed()
+		update_hbar()
+	else:
+		if not state_corpse:
+			state_corpse = true
+			handle_death()
+	if state_corpse:
+		return !rot()
+		
 func rot():
 	corpse_decaying_timer += 5
 	print("%s rotting, %d / %d" % [npc_name, corpse_decaying_timer, corpse_decay_time])
