@@ -14,6 +14,9 @@ var age: int = 0
 var sex: String
 
 @onready var npc_uid: int
+# Split routine controller for simplicity
+# need routine_type, current path export, either store part in routine
+@onready var routine_handler = $RoutineController
 @onready var race = $PropertyController/RaceController.get_race(race_name, npc_name)
 @onready var stats_handler = $PropertyController/StatsController.StatsHandler.new()
 @onready var body = $PropertyController/BodyController.Body.new()
@@ -32,6 +35,7 @@ func _mouse_enter() -> void:
 	$PanelContainer/Label.text = "%s %d %s %s\n%d/%d %d\n" % [npc_name, age/TimeProcesser.year_to_ticks, sex, race_name, body.get_current_health(), body.get_max_health(), body.total_blood]
 	$PanelContainer/Label.text += "Alive: %s, consious: %s" % [body.is_alive, body.is_consious]
 	$PanelContainer/Label.text += str(stats_handler.stats)
+	$PanelContainer/Label.text += "\n%s\n" % $RoutineController.current_routine
 	$PanelContainer/Label.visible = true
 	$PanelContainer.visible = true
 
@@ -40,7 +44,7 @@ func _mouse_exit() -> void:
 	$PanelContainer.visible = false
 	
 func _ready():
-	print($RoutineController.current_routine)
+	print(routine_handler.current_routine)
 	self.area_entered.connect(pair_offset)
 	self.area_exited.connect(pair_offset_restore)
 	# I really need to rewrite this part
@@ -109,6 +113,7 @@ func _on_time_process(time_amount: int):
 	# handle ticks less than 5 min | ticks under 5 min BREAK COMBAT DEATH
 	print("%s processing time %d, ticks to process: %d" % [npc_name, time_amount, ticks_to_process])
 	for tick in ticks_to_process:
+		routine_handler.process_routine()
 		if roll_for_death(): break
 
 # Split this into body processing and sudden death trigger

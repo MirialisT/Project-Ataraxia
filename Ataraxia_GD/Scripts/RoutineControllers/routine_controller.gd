@@ -1,5 +1,18 @@
 extends Node
-@export_enum("IDLE", "MOVE", "WORK", "REST") var current_routine: String = "IDLE"
+enum CurrentRoutine {IDLE, MOVE, WORK, REST}
+@export var current_routine: CurrentRoutine
+@onready var navigator = $NavigationController
 
-func switch_routine(new_routine: String) -> void:
-	if current_routine.contains(new_routine): current_routine = new_routine
+func switch_routine(routine_id: int) -> void: current_routine = routine_id
+
+func process_routine() -> void:
+	match current_routine:
+		0: return
+		1: move()
+		2: work()
+	pass
+
+func move():
+	navigator.move()
+func work():
+	print("WORK")
