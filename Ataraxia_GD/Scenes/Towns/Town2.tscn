@@ -65,8 +65,6 @@ scene_name_to = "Town1"
 scene_name_from = "Town2"
 
 [node name="to_west" parent="." instance=ExtResource("4_kbvbe")]
-collision_layer = 4
-collision_mask = 0
 pos_calculation_is_needed = true
 scene_switch_to = "Town1"
 object_collision_corners = Array[Vector2i]([Vector2i(1, 5), Vector2i(2, 8)])

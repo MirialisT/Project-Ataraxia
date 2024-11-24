@@ -64,15 +64,11 @@ scene_name_to = "Town2"
 scene_name_from = "Town1"
 
 [node name="to_north" parent="." instance=ExtResource("4_bsxuf")]
-collision_layer = 4
-collision_mask = 0
 pos_calculation_is_needed = true
 scene_switch_to = "NorthPart"
 object_collision_corners = Array[Vector2i]([Vector2i(16, 1), Vector2i(19, 2)])
 
 [node name="to_east" parent="." instance=ExtResource("4_bsxuf")]
-collision_layer = 4
-collision_mask = 0
 pos_calculation_is_needed = true
 scene_switch_to = "Town2"
 object_collision_corners = Array[Vector2i]([Vector2i(34, 5), Vector2i(35, 8)])
