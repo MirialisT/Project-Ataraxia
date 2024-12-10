@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=4 uid="uid://b6xd1l6nexsti"]
+[gd_scene load_steps=7 format=4 uid="uid://b6xd1l6nexsti"]
 
 [ext_resource type="Script" path="res://Scripts/SceneHandler.gd" id="1_nvgew"]
 [ext_resource type="Texture2D" uid="uid://dkc0egstyi8no" path="res://Tilesets/town-building.png" id="2_qm8ul"]
 [ext_resource type="Script" path="res://Scenes/Towns/onTownClick.gd" id="3_27wsm"]
+[ext_resource type="PackedScene" uid="uid://b0ruckwng366t" path="res://Scenes/transition_object.tscn" id="4_kbvbe"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_wo5ah"]
 texture = ExtResource("2_qm8ul")
@@ -62,3 +63,8 @@ text = "Switch to town1"
 script = ExtResource("3_27wsm")
 scene_name_to = "Town1"
 scene_name_from = "Town2"
+
+[node name="to_west" parent="." instance=ExtResource("4_kbvbe")]
+pos_calculation_is_needed = true
+scene_switch_to = "Town1"
+object_collision_corners = Array[Vector2i]([Vector2i(1, 5), Vector2i(2, 8)])

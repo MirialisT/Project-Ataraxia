@@ -65,6 +65,7 @@ func _unhandled_input(event):
 	# ignores mouse -> ignores mouse+keyboard
 	# print("In-combat:%s" % in_combat, event)
 	if !in_combat:
+		if event.is_action_pressed("ui_accept"): TimeProcesser.time_process()
 		var target = $RayCast2D.get_collider()
 		# Think about on-enter-scene-switch approach
 		# Prolly interactable objects with scene_to String
@@ -121,6 +122,9 @@ func collision_handler(direction):
 	var raycast_y = tile_size * inputs[direction][1]
 	$RayCast2D.target_position = Vector2(raycast_x, raycast_y)
 	$RayCast2D.force_raycast_update()
+	var target: Node = $RayCast2D.get_collider()
+	if target is Character:
+		return true
 	return !$RayCast2D.is_colliding()
 		
 func move(dir):

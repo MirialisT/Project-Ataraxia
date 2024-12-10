@@ -17,6 +17,7 @@ script = ExtResource("1_2tdgr")
 texture = ExtResource("2_emwtx")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+scale = Vector2(0.9, 0.9)
 shape = SubResource("RectangleShape2D_xvac6")
 
 [node name="RayCast2D" type="RayCast2D" parent="."]
